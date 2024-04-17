@@ -26,7 +26,7 @@ public class ProductoDAO {
 		
 		try {
 			Connection con = Conexion.getConexion();
-			PreparedStatement st = con.prepareStatement("SELECT * FROM producto");
+			PreparedStatement st = con.prepareStatement("SELECT * FROM productos");
 			
 			ResultSet rs = st.executeQuery();
 			
@@ -56,7 +56,7 @@ public class ProductoDAO {
 
 	    try {
 	        Connection con = Conexion.getConexion();
-	        PreparedStatement st = con.prepareStatement("SELECT * FROM producto WHERE id = ?");
+	        PreparedStatement st = con.prepareStatement("SELECT * FROM productos WHERE id = ?");
 	        st.setInt(1, id);
 	        ResultSet rs = st.executeQuery();
 

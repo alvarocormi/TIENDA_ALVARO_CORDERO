@@ -11,7 +11,7 @@
 	<form action="LoginServlet" method="post">
 		<label for="email">Email:</label> <input type="text"
 			id="email" name="email" required><br> <br> <label
-			for="clave">Password:</label> <input type="clave" id="clave"
+			for="clave">Password:</label> <input type="password" id="clave"
 			name="clave" required><br> <br>
 		<!-- Agrega este código para mostrar el mensaje de error -->
 		<%

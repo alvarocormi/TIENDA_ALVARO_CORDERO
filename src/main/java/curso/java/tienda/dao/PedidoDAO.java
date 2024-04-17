@@ -27,11 +27,11 @@ public class PedidoDAO {
             conexion = Conexion.getConexion();
 
             // Consulta SQL para insertar un nuevo pedido
-            String sql = "INSERT INTO pedido (usuario_id, fecha, metodopago, numfactura, total) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO pedidos (id_usuario, fecha, metodo_pago, num_factura, total) VALUES (?, ?, ?, ?, ?)";
 
             // Preparar la declaración SQL con los parámetros del pedido
             stmt = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, pedido.getUsuario_id());
+            stmt.setInt(1, pedido.getIdUsuario());
             stmt.setDate(2, new java.sql.Date(pedido.getFecha().getTime())); // Convertir la fecha de java.util.Date a java.sql.Date
             stmt.setString(3, pedido.getMetodoPago());
             stmt.setString(4, pedido.getNumFactura());

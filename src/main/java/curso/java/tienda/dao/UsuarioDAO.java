@@ -11,7 +11,7 @@ import curso.java.tienda.util.Conexion;
 public class UsuarioDAO {
 
 	public static boolean verificarCredenciales(String email, String contrasena) {
-		String sql = "SELECT COUNT(*) FROM usuario WHERE email = ? AND clave = ?";
+		String sql = "SELECT COUNT(*) FROM usuarios WHERE email = ? AND clave = ?";
 
 		Connection c = Conexion.getConexion();
 
@@ -38,7 +38,7 @@ public class UsuarioDAO {
 
 	public static void agregarUsuario(String email, String clave) throws SQLException {
 
-		String sql = "INSERT INTO usuario (email, clave) VALUES (?,?)";
+		String sql = "INSERT INTO usuarios (email, clave) VALUES (?,?)";
 		Connection c = Conexion.getConexion();
 		PreparedStatement stmt;
 
@@ -55,10 +55,10 @@ public class UsuarioDAO {
 
 	}
 
-	public static void agregarDatosEnvio(String nombre, String apellidos, String direccion, String cp, String email)
+	public static void agregarDatosEnvio(String nombre, String apellido1, String apellido2 ,String direccion ,String telefono, String email)
 			throws SQLException {
 
-		String sql = "UPDATE usuario SET nombre = ?, apellidos = ?, direccion = ?, cp = ? WHERE email = ?";
+		String sql = "UPDATE usuarios SET nombre = ?, apellido1 = ?,apellido2 = ?, direccion = ?, telefono = ? WHERE email = ?";
 		Connection conn = Conexion.getConexion();
 		PreparedStatement stmt = null;
 
@@ -66,10 +66,11 @@ public class UsuarioDAO {
 			stmt = conn.prepareStatement(sql);
 
 			stmt.setString(1, nombre);
-			stmt.setString(2, apellidos);
-			stmt.setString(3, direccion);
-			stmt.setString(4, cp);
-			stmt.setString(5, email);
+			stmt.setString(2, apellido1);
+			stmt.setString(3, apellido2);
+			stmt.setString(4, direccion);
+			stmt.setString(5, telefono);
+			stmt.setString(6, email);
 
 			// Ejecutar la consulta
 			stmt.executeUpdate();
@@ -87,7 +88,7 @@ public class UsuarioDAO {
 
         try {
             conexion = Conexion.getConexion();
-            String sql = "SELECT * FROM usuario WHERE email = ?";
+            String sql = "SELECT * FROM usuarios WHERE email = ?";
             ps = conexion.prepareStatement(sql);
             ps.setString(1, email);
             rs = ps.executeQuery();
@@ -96,12 +97,18 @@ public class UsuarioDAO {
                 // Si se encuentra el usuario, crear un objeto UsuarioVO con los datos recuperados de la base de datos
                 usuario = new UsuarioVO();
                 usuario.setId(rs.getInt("id"));
-                usuario.setRol_id(rs.getInt("rol_id"));
+                usuario.setRolId(rs.getInt("id_rol"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setClave(rs.getString("clave"));
                 usuario.setNombre(rs.getString("nombre"));
-                usuario.setApellidos(rs.getString("apellidos"));
-                usuario.setBaja(rs.getInt("baja"));
+                usuario.setApellido1(rs.getString("apellido1"));
+                usuario.setApellido2(rs.getString("apellido2"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setLocalidad(rs.getString("localidad"));
+                usuario.setProvincia(rs.getString("provincia"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setDireccion(rs.getString("telefono"));
+                usuario.setDireccion(rs.getString("dni"));
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Manejo de errores, puedes personalizarlo según tus necesidades

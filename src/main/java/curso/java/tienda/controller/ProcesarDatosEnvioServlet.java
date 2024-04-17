@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import curso.java.tienda.dao.UsuarioDAO;
 import curso.java.tienda.model.UsuarioVO;
+import curso.java.tienda.service.UsuarioService;
 
 @WebServlet("/ProcesarDatosEnvioServlet")
 public class ProcesarDatosEnvioServlet extends HttpServlet {
@@ -30,18 +31,15 @@ public class ProcesarDatosEnvioServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		UsuarioVO u = (UsuarioVO) session.getAttribute("usuario");
-		try {
-			// LLAMAR A SERVICE PARA VALIDAR LOS DATOS RECOGIDOS POR EL FORMULARIO
-			
-			// ACTUALIZAR EL USUARIO EN LA TABLA 
-			UsuarioDAO.agregarDatosEnvio(request.getParameter("nombre"), request.getParameter("apellidos"),
-			request.getParameter("direccion"), request.getParameter("codigoPostal"), u.getEmail());
-			
-			request.getRequestDispatcher("metodoPago.jsp").forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// ACTUALIZAR EL USUARIO EN LA TABLA
+		UsuarioService.agregarDatosEnvio(request.getParameter("nombre"), request.getParameter("apellido1"),
+				request.getParameter("apellido2"), request.getParameter("direccion"), request.getParameter("telefono"),
+				u.getEmail());
+
+		UsuarioVO u2 = UsuarioService.recuperarUsuario(u.getEmail());
+		session.setAttribute("usuario", u2);
+
+		request.getRequestDispatcher("metodoPago.jsp").forward(request, response);
 	}
 
 }

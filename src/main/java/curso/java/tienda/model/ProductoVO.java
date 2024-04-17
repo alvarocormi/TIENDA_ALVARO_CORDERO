@@ -1,5 +1,7 @@
 package curso.java.tienda.model;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,9 @@ public class ProductoVO {
 	Double precio;
 	Double impuesto;
 	int stock;
+	int idCategoria;
 	boolean baja;
+	Date fechaAlta;
+	Date fechaBaja;
+	String imagen;
 }
