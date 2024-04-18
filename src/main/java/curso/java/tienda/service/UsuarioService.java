@@ -3,6 +3,8 @@ package curso.java.tienda.service;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import curso.java.tienda.dao.UsuarioDAO;
 import curso.java.tienda.model.UsuarioVO;
 
@@ -65,6 +67,15 @@ public class UsuarioService {
 		}
 		return true;
 
+	}
+	
+	public static String encriptarClave(String clave) {
+		String claveEncriptada ;
+		
+		// Generar hash de contraseña
+        claveEncriptada = BCrypt.hashpw(clave, BCrypt.gensalt());
+		
+		return claveEncriptada;
 	}
 
 }

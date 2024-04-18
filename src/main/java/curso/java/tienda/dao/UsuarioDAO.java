@@ -5,35 +5,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import curso.java.tienda.model.UsuarioVO;
 import curso.java.tienda.util.Conexion;
 
 public class UsuarioDAO {
 
-	public static boolean verificarCredenciales(String email, String contrasena) {
-		String sql = "SELECT COUNT(*) FROM usuarios WHERE email = ? AND clave = ?";
-
+	public static boolean verificarCredenciales(String email, String clave) {
+		String sql = "SELECT email, clave FROM usuarios WHERE email = ?";
 		Connection c = Conexion.getConexion();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
-		PreparedStatement stmt;
 		try {
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, email);
-			stmt.setString(2, contrasena);
-
-			ResultSet rs = stmt.executeQuery();
+			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				int count = rs.getInt(1);
-				return count > 0; // Si el recuento es mayor que cero, las credenciales son válidas
+				// Si hay resultados en la consulta
+				String emailRecibido = rs.getString("email");
+				String claveRecibida = rs.getString("clave");
+
+				// Ejemplo de comparación para verificar credenciales
+				if (emailRecibido.equals(email) && BCrypt.checkpw(clave, claveRecibida)) {
+					return true; // Credenciales válidas
+				}
 			}
-			;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return false;
+		return false; // Credenciales inválidas o error en la consulta
 	}
 
 	public static void agregarUsuario(String email, String clave) throws SQLException {
@@ -55,8 +59,8 @@ public class UsuarioDAO {
 
 	}
 
-	public static void agregarDatosEnvio(String nombre, String apellido1, String apellido2 ,String direccion ,String telefono, String email)
-			throws SQLException {
+	public static void agregarDatosEnvio(String nombre, String apellido1, String apellido2, String direccion,
+			String telefono, String email) throws SQLException {
 
 		String sql = "UPDATE usuarios SET nombre = ?, apellido1 = ?,apellido2 = ?, direccion = ?, telefono = ? WHERE email = ?";
 		Connection conn = Conexion.getConexion();
@@ -79,40 +83,41 @@ public class UsuarioDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static UsuarioVO recuperarUsuarioPorEmail(String email) {
-        Connection conexion = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        UsuarioVO usuario = null;
+		Connection conexion = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		UsuarioVO usuario = null;
 
-        try {
-            conexion = Conexion.getConexion();
-            String sql = "SELECT * FROM usuarios WHERE email = ?";
-            ps = conexion.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
+		try {
+			conexion = Conexion.getConexion();
+			String sql = "SELECT * FROM usuarios WHERE email = ?";
+			ps = conexion.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
 
-            if (rs.next()) {
-                // Si se encuentra el usuario, crear un objeto UsuarioVO con los datos recuperados de la base de datos
-                usuario = new UsuarioVO();
-                usuario.setId(rs.getInt("id"));
-                usuario.setRolId(rs.getInt("id_rol"));
-                usuario.setEmail(rs.getString("email"));
-                usuario.setClave(rs.getString("clave"));
-                usuario.setNombre(rs.getString("nombre"));
-                usuario.setApellido1(rs.getString("apellido1"));
-                usuario.setApellido2(rs.getString("apellido2"));
-                usuario.setDireccion(rs.getString("direccion"));
-                usuario.setLocalidad(rs.getString("localidad"));
-                usuario.setProvincia(rs.getString("provincia"));
-                usuario.setDireccion(rs.getString("direccion"));
-                usuario.setDireccion(rs.getString("telefono"));
-                usuario.setDireccion(rs.getString("dni"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de errores, puedes personalizarlo según tus necesidades
-        }
-        return usuario;
-    }
+			if (rs.next()) {
+				// Si se encuentra el usuario, crear un objeto UsuarioVO con los datos
+				// recuperados de la base de datos
+				usuario = new UsuarioVO();
+				usuario.setId(rs.getInt("id"));
+				usuario.setRolId(rs.getInt("id_rol"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setClave(rs.getString("clave"));
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setApellido1(rs.getString("apellido1"));
+				usuario.setApellido2(rs.getString("apellido2"));
+				usuario.setDireccion(rs.getString("direccion"));
+				usuario.setLocalidad(rs.getString("localidad"));
+				usuario.setProvincia(rs.getString("provincia"));
+				usuario.setDireccion(rs.getString("direccion"));
+				usuario.setDireccion(rs.getString("telefono"));
+				usuario.setDireccion(rs.getString("dni"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Manejo de errores, puedes personalizarlo según tus necesidades
+		}
+		return usuario;
+	}
 }

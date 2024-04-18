@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		boolean isAuthenticated = UsuarioDAO.verificarCredenciales(request.getParameter("email"),
+		boolean isAuthenticated = UsuarioService.verificarCredenciales(request.getParameter("email"),
 				request.getParameter("clave"));
 
 		if (isAuthenticated) {

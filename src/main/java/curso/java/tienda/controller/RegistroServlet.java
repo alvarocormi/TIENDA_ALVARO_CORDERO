@@ -40,14 +40,15 @@ public class RegistroServlet extends HttpServlet {
 	        // Comprueba si las claves coinciden
 	        if (!UsuarioService.validarClaves(clave, claveRepetida) && error == null) {
 	            error = "Las claves no son las mismas";
-	        }
+	        } 
+	        
 
 	        if (error == null) {
 	            // Si no hay errores, procede con la lógica de negocio
 	            if (!UsuarioService.verificarCredenciales(email, clave)) {
 	                try {
-	                    // El usuario no existe, así que lo agregamos a la base de datos
-	                    UsuarioDAO.agregarUsuario(email, clave);
+	                    // El usuario no existe, así que lo agregamos a la base de dato
+	                    UsuarioDAO.agregarUsuario(email, UsuarioService.encriptarClave(clave));
 	                    HttpSession sessionRegistro = request.getSession(true);
 	                    // Agregamos al usuario a la sesión
 	                    sessionRegistro.setAttribute("usuario", UsuarioService.agregarUsuarioEmail(email));
