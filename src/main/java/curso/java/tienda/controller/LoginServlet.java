@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
 		if (isAuthenticated) {
 			HttpSession sessionLogin = request.getSession(true);
-			sessionLogin.setAttribute("usuario", UsuarioService.agregarUsuarioEmail(request.getParameter("email")));
+			sessionLogin.setAttribute("usuario", UsuarioService.recuperarUsuario(request.getParameter("email")));
 			request.getRequestDispatcher("").forward(request, response);
 
 		} else {

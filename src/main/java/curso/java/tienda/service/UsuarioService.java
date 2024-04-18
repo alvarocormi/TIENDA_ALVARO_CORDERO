@@ -22,6 +22,22 @@ public class UsuarioService {
 		return UsuarioDAO.recuperarUsuarioPorEmail(email);
 
 	}
+	
+	public static boolean editarUsuario(String nombre, String apellido1, String apellido2, String direccion,
+			String dni, String email , String localidad, String provincia, String telefono) {
+		try {
+			if(UsuarioDAO.editarUsuario(nombre, apellido1, apellido2, direccion, dni, email, localidad, provincia, telefono)) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 
 	// Método para validar el formulario
 	public static boolean comprobarVacios(String email, String clave, String claveRepetida) {
@@ -76,6 +92,20 @@ public class UsuarioService {
         claveEncriptada = BCrypt.hashpw(clave, BCrypt.gensalt());
 		
 		return claveEncriptada;
+	}
+	
+	public static boolean compararClaves(String clave, String claveEncriptada) {
+		if(BCrypt.checkpw(clave, claveEncriptada)) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public static boolean cambiarClave(String nuevaClave,String email) {
+		String nuevaClaveCodificada=encriptarClave(nuevaClave);
+		UsuarioDAO.cambiarClave(nuevaClaveCodificada, email);
+		return true;
 	}
 
 }

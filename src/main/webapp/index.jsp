@@ -25,7 +25,7 @@
 
             </i>
         </a>
-        <a href="LoginServlet"><i class="fas fa-user"></i></a>
+        <a href="PerfilServlet"><i class="fas fa-user"></i></a>
             <%
                 if (session.getAttribute("usuario") != null) {
                 UsuarioVO u = (UsuarioVO) session.getAttribute("usuario");

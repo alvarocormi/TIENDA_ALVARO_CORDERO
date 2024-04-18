@@ -84,6 +84,39 @@ public class UsuarioDAO {
 		}
 	}
 
+	public static boolean editarUsuario(String nombre, String apellido1, String apellido2, String direccion, String dni,
+			String email, String localidad, String provincia, String telefono) throws SQLException {
+
+		String sql = "UPDATE usuarios SET nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, dni = ?, localidad = ?, provincia = ?, telefono = ?  WHERE email = ?";
+		Connection conn = Conexion.getConexion();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, nombre);
+			stmt.setString(2, apellido1);
+			stmt.setString(3, apellido2);
+			stmt.setString(4, direccion);
+			stmt.setString(5, dni);
+			stmt.setString(6, localidad);
+			stmt.setString(7, provincia);
+			stmt.setString(8, telefono);
+			stmt.setString(9, email);
+
+			if (stmt.executeUpdate() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 	public static UsuarioVO recuperarUsuarioPorEmail(String email) {
 		Connection conexion = null;
 		PreparedStatement ps = null;
@@ -111,13 +144,35 @@ public class UsuarioDAO {
 				usuario.setDireccion(rs.getString("direccion"));
 				usuario.setLocalidad(rs.getString("localidad"));
 				usuario.setProvincia(rs.getString("provincia"));
-				usuario.setDireccion(rs.getString("direccion"));
-				usuario.setDireccion(rs.getString("telefono"));
-				usuario.setDireccion(rs.getString("dni"));
+				usuario.setTelefono(rs.getString("telefono"));
+				usuario.setDni(rs.getString("dni"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // Manejo de errores, puedes personalizarlo según tus necesidades
 		}
 		return usuario;
+	}
+
+	public static boolean cambiarClave(String clave, String email) {
+		String sql = "UPDATE usuarios SET clave = ?  WHERE email = ?";
+		Connection conn = Conexion.getConexion();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, clave);
+			stmt.setString(2, email);
+
+			if (stmt.executeUpdate() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 }
