@@ -33,7 +33,7 @@ public class CarritoServlet extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
-        request.getRequestDispatcher("carrito.jsp").forward(request, response);
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     /**

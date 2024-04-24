@@ -18,7 +18,6 @@ public class ProductoVO {
 	Double impuesto;
 	int stock;
 	int idCategoria;
-	boolean baja;
 	Date fechaAlta;
 	Date fechaBaja;
 	String imagen;

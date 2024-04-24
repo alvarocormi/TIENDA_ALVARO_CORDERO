@@ -1,46 +1,96 @@
-<%@page import="curso.java.tienda.model.UsuarioVO"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Perfil</title>
-</head>
-<body>
-    <form action="PerfilServlet" method="post">
-        <%@ page import="javax.servlet.http.HttpSession"%>
-        <%
-        UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
-        %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="header.jsp"%>
+<!-- Start Hero Section -->
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Perfil</h1>
+				</div>
+			</div>
+			<div class="col-lg-7"></div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+<div class="untree_co-section" style="padding: 3rem 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 mb-5 mb-md-0">
+				<div class="form-group row">
+					<form action="PerfilServlet" method="post" class="row">
+						<%
+						UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
+						%>
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= (usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : "" %>"><br><br>
+						<div class="col-md-6">
+							<label for="c_fname" class="text-black">Nombre <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="nombre" name="nombre"
+								value="<%=(usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Primer Apellido <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="apellido2" name="apellido1"
+								value="<%=(usuario != null && usuario.getApellido1() != null) ? usuario.getApellido1() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Segundo Apellido
+								<span class="text-danger">*</span>
+							</label> <input type="text" class="form-control" id="apellido2"
+								name="apellido2"
+								value="<%=(usuario != null && usuario.getApellido2() != null) ? usuario.getApellido2() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Direccion <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="direccion" name="direccion"
+								value="<%=(usuario != null && usuario.getDireccion() != null) ? usuario.getDireccion() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">DNI <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="dni" name="dni"
+								value="<%=(usuario != null && usuario.getDni() != null) ? usuario.getDni() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Localidad <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="localidad" name="localidad"
+								value="<%=(usuario != null && usuario.getLocalidad() != null) ? usuario.getLocalidad() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Provincia <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="provincia" name="provincia"
+								value="<%=(usuario != null && usuario.getProvincia() != null) ? usuario.getProvincia() : ""%>">
+						</div>
+						<div class="col-md-6">
+							<label for="c_lname" class="text-black">Telefono <span
+								class="text-danger">*</span></label> <input type="text"
+								class="form-control" id="telefono" name="telefono"
+								value="<%=(usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : ""%>">
+						</div>
+						<div class="form-group pt-4">
+							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+								value="Editar"></input>
+						</div>
+					</form>
+				</div>
 
-        <label for="apellido1">Primer Apellido:</label>
-        <input type="text" id="apellido1" name="apellido1" value="<%= (usuario != null && usuario.getApellido1() != null) ? usuario.getApellido1() : "" %>"><br><br>
+				<a href="AÃ±adirProductoServlet">Volver</a> <a
+					href="CambiarClaveServlet">Cambiar ContraseÃ±a</a>
 
-        <label for="apellido2">Segundo Apellido:</label>
-        <input type="text" id="apellido2" name="apellido2" value="<%= (usuario != null && usuario.getApellido2() != null) ? usuario.getApellido2() : "" %>"><br><br>
 
-        <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion" value="<%= (usuario != null && usuario.getDireccion() != null) ? usuario.getDireccion() : "" %>"><br><br>
+			</div>
+		</div>
 
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" value="<%= (usuario != null && usuario.getDni() != null) ? usuario.getDni() : "" %>"><br><br>
+	</div>
+	<!-- </form> -->
+</div>
 
-        <label for="localidad">Localidad:</label>
-        <input type="text" id="localidad" name="localidad" value="<%= (usuario != null && usuario.getLocalidad() != null) ? usuario.getLocalidad() : "" %>"><br><br>
-
-        <label for="provincia">Provincia:</label>
-        <input type="text" id="provincia" name="provincia" value="<%= (usuario != null && usuario.getProvincia() != null) ? usuario.getProvincia() : "" %>"><br><br>
-
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" value="<%= (usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : "" %>"><br><br>
-        
-		<a href="AñadirProductoServlet">Volver</a>
-        <input type="submit" value="Editar">
-          <a href="CambiarClaveServlet">Cambiar Contraseña</a>
-    </form>
-</body>
+<%@ include file="footer.jsp"%>
 </html>

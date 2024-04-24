@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.Session;
+
 import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.model.ProductoVO;
 
@@ -31,13 +33,12 @@ public class AñadirProductoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		
 		if (request.getParameter("id") != null) {
-			HttpSession session = request.getSession();
 			String id = request.getParameter("id");
 			
 			
-
 			HashMap<ProductoVO, Integer> carrito = (HashMap<ProductoVO, Integer>) session.getAttribute("carrito");
 
 			if (carrito == null) {
@@ -54,10 +55,13 @@ public class AñadirProductoServlet extends HttpServlet {
 				totalCarrito = 0;
 			}
 			session.setAttribute("totalCarrito", carrito.size());
+			
 
 		}
-
-		response.sendRedirect(request.getContextPath());
+		
+		
+		
+		response.sendRedirect((String) session.getAttribute("currentUrl"));
 	}
 
 	/**

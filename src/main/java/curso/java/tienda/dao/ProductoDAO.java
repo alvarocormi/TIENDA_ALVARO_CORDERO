@@ -26,7 +26,7 @@ public class ProductoDAO {
 		
 		try {
 			Connection con = Conexion.getConexion();
-			PreparedStatement st = con.prepareStatement("SELECT * FROM productos");
+			PreparedStatement st = con.prepareStatement("SELECT c.nombre AS categoria, p.descripcion, p.fecha_alta, p.fecha_baja, p.id, p.id_categoria, p.imagen, p.impuesto, p.nombre, p.precio, p.stock FROM productos p LEFT JOIN categorias c ON p.id_categoria = c.id ORDER BY c.nombre;");
 			
 			ResultSet rs = st.executeQuery();
 			
@@ -38,6 +38,7 @@ public class ProductoDAO {
 				producto.setNombre(rs.getString("nombre"));
 				producto.setPrecio(rs.getDouble("precio"));
 				producto.setStock(rs.getInt("stock"));
+				producto.setIdCategoria(rs.getInt("id_categoria"));
 				
 				
 				lista.add(producto);

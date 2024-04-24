@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
-@WebFilter("/PagarServlet/*")
+@WebFilter("/PagarServlet")
 public class PagarFilter implements Filter {
  
     public void init(FilterConfig fConfig) throws ServletException {
@@ -32,7 +32,7 @@ public class PagarFilter implements Filter {
         // Verificar si hay un usuario en la sesión
         if (httpRequest.getSession().getAttribute("usuario") == null) {
             // No hay usuario en la sesión, redirigir a la página de inicio de sesión
-        	request.getRequestDispatcher("login.jsp").forward(request, response);
+        	request.getRequestDispatcher("loginCarrito.jsp").forward(request, response);
         } else {
         	request.getRequestDispatcher("datosEnvio.jsp").forward(request, response);
         }
