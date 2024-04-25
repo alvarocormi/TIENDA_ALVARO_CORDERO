@@ -89,7 +89,7 @@ public class ProcesarPagoPedidoServlet extends HttpServlet {
 			}
 			
 			sessionPedido.setAttribute("carrito", null);
-			request.getRequestDispatcher("").forward(request, response);
+			request.getRequestDispatcher("thankyou.jsp").forward(request, response);
 
 		}else {
 			// REDIRIGIR E INDICAR QUE EL CARRITO ESTA VACIO

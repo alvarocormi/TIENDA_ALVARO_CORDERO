@@ -17,15 +17,24 @@ session = request.getSession();
 	</div>
 </div>
 <div class="untree_co-section product-section before-footer-section">
-	<form action="TiendaServlet" method="get">
-    <label for="filtros">Filtrar:</label>
-    <select id="filtros" name="filtros">
-        <option value="c.nombre" <%= (request.getParameter("filtros") != null && request.getParameter("filtros").equals("c.nombre")) ? "selected" : "" %>>Categoria</option>
-        <option value="p.precio" <%= (request.getParameter("filtros") != null && request.getParameter("filtros").equals("p.precio")) ? "selected" : "" %>>Precio</option>
-        <option value="p.stock" <%= (request.getParameter("filtros") != null && request.getParameter("filtros").equals("p.stock")) ? "selected" : "" %>>Stock</option>
-    </select>
-    <input type="submit" value="Enviar">
-</form>
+	<div class="form-group" style="width: 10%; margin-left: 16%; margin-top: -70px;">
+		<form action="TiendaServlet" method="get" style="margin-bottom: 60px">
+			<label for="filtros" class="text-black">Filtrar <span
+				class="text-danger"></span></label> <select id="filtros" name="filtros"
+				class="form-control">
+				<option value="c.nombre"
+					<%=(request.getParameter("filtros") != null && request.getParameter("filtros").equals("c.nombre")) ? "selected"
+		: ""%>>Categoria</option>
+				<option value="p.precio"
+					<%=(request.getParameter("filtros") != null && request.getParameter("filtros").equals("p.precio")) ? "selected"
+		: ""%>>Precio</option>
+				<option value="p.stock"
+					<%=(request.getParameter("filtros") != null && request.getParameter("filtros").equals("p.stock")) ? "selected"
+		: ""%>>Stock</option>
+			</select> <input type="submit" value="Enviar">
+		</form>
+	</div>
+
 
 	<div class="container">
 
@@ -38,15 +47,14 @@ session = request.getSession();
 
 			<!-- Start Column 1 -->
 			<div class="col-12 col-md-4 col-lg-3 mb-5">
-				<a class="product-item" href="AñadirProductoServlet?id=<%=producto.getId()%>"> <img
+				<a class="product-item"
+					href="AñadirProductoServlet?id=<%=producto.getId()%>"> <img
 					src="images/product-3.png" class="img-fluid product-thumbnail">
 					<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
 					class="product-price"><%=producto.getPrecio() + "€"%></strong> <span
 					class="icon-cross"> <img src="images/cross.svg"
-						class="img-fluid">
-						<a
-						href="AñadirProductoServlet?id=<%=producto.getId()%>">
-				</span>
+						class="img-fluid"> <a
+						href="AñadirProductoServlet?id=<%=producto.getId()%>"></span>
 				</a>
 			</div>
 
