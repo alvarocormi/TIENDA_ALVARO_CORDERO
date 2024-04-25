@@ -3,27 +3,23 @@
 <%@page import="java.util.HashMap"%>
 <%@ include file="header.jsp"%>
 <script>
-
-function obtenerCantidad(productoId) {
-    var input= document.getElementById("cantidadInput");
-    actualizarCantidad(productoId,input);
-	
+function addCantidad(productoId,stockProducto) {
+    var input= document.getElementById("cantidadInput"+productoId);
+    var cantidad = parseInt(input.value);
+    if(cantidad<stockProducto){
+    	 cantidad++;
+    	    actualizarCantidad(productoId,cantidad);
+    }  
 }
 
-function addCantidad(productoId) {
-    var input= document.getElementById("cantidadInput");
+function removeCantidad(productoId,stockProducto) {
+    var input= document.getElementById("cantidadInput"+productoId);
     var cantidad = parseInt(input.value);
-    cantidad++;
-    actualizarCantidad(productoId,cantidad);
-	
-}
-
-function removeCantidad(productoId) {
-    var input= document.getElementById("cantidadInput");
-    var cantidad = parseInt(input.value);
+    if(cantidad>1){
     cantidad--;
     actualizarCantidad(productoId,cantidad);
-	
+    validarCantidad(input,stockProducto);
+    }
 }
 
 function actualizarCantidad(productoId, cantidad) {
@@ -44,16 +40,24 @@ function actualizarCantidad(productoId, cantidad) {
         });
 }
 
-function validarCantidad(input) {
-    // Reemplazar cualquier carácter que no sea un número con una cadena vacía
-    input.value = input.value.replace(/\D/g, '');
-
-    // Verificar si el valor es mayor que el máximo permitido (esto se puede hacer si lo necesitas)
-    var maximo = parseInt(input.getAttribute('max'));
-    if (input.value !== '' && parseInt(input.value) > maximo) {
-        input.value = maximo.toString(); // Establecer el valor al máximo permitido
+function validarCantidad(input,stockProducto) {
+    // Convertir el valor a un número entero
+    var cantidad = parseInt(input.value);
+    // Verificar si el valor es menor que cero (negativo)
+    if (cantidad < 1) {
+        // Si es negativo, establecer el valor como cero
+        input.value = 1;
+    } else {
+        // Verificar si el valor es mayor que el máximo permitido (esto se puede hacer si lo necesitas)
+        var maximo = stockProducto;
+        if (cantidad > maximo) {
+            // Si es mayor que el máximo permitido, establecer el valor al máximo permitido
+            input.value = maximo.toString();
+        }
     }
 }
+
+
 
 
 function actualizarPagina() {
@@ -99,16 +103,11 @@ function actualizarPagina() {
 						<tbody>
 							<%
 							session = request.getSession();
-							Map<ProductoVO, Integer> carrito = (HashMap<ProductoVO, Integer>) session.getAttribute("carrito");
 							if (carrito != null) {
 								for (Map.Entry<ProductoVO, Integer> entry : carrito.entrySet()) {
 									ProductoVO producto = entry.getKey();
 									Integer cantidad = entry.getValue();
 							%>
-							<script>
-							 var inputElement = document.getElementById("cantidad");
-							 
-							</script>
 							<tr>
 								<td class="product-thumbnail"><img
 									src="images/product-1.png" alt="Image" class="img-fluid">
@@ -123,26 +122,24 @@ function actualizarPagina() {
 										style="max-width: 120px;">
 										<div class="input-group-prepend">
 											<button class="btn btn-outline-black decrease" 
-												onclick="removeCantidad('<%=producto.getId()%>'),actualizarPagina()" type="button">&minus;</button>
+												onclick="removeCantidad('<%=producto.getId()%>','<%=producto.getStock()%>'),actualizarPagina()" type="button">&minus;</button>
 										</div>
-										<input id="cantidadInput" name="cantidadInput"
+										<input id="cantidadInput<%=+producto.getId()%>" name="cantidadInput"
 											class="form-control text-center quantity-amount"
 											value="<%=cantidad%>" placeholder=""
 											aria-label="Example text with button addon"
 											aria-describedby="button-addon1"
-											max="<%=producto.getStock()%>"
-											oninput="validarCantidad(this)"
-											onchange="actualizarCantidad('<%=producto.getId()%>', this.value)">
+											onchange="validarCantidad(this,'<%=producto.getStock()%>'),actualizarCantidad('<%=producto.getId()%>', this.value),actualizarPagina()">
 
 										<div class="input-group-append">
 											<button class="btn btn-outline-black increase"
-												onclick="addCantidad('<%=producto.getId()%>'),actualizarPagina()" type="button">&plus;</button>
+												onclick="addCantidad('<%=producto.getId()%>','<%=producto.getStock()%>'), actualizarPagina()" type="button">&plus;</button>
 										</div>
 									</div>
 
 								</td>
 								<td><%=producto.getPrecio() * cantidad%></td>
-								<td><a href="BorrarProductoCarritoServlet?producto=<%=producto%>" class="btn btn-black btn-sm">X</a></td>
+								<td><a href="BorrarProductoCarritoServlet?idProducto=<%=producto.getId()%>" class="btn btn-black btn-sm">X</a></td>
 							</tr>
 						</tbody>
 						<%
@@ -183,11 +180,6 @@ function actualizarPagina() {
 	</div>
 </div>
 <%@ include file="footer.jsp"%>
-
-
-<!-- End Footer Section -->
-
-
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/tiny-slider.js"></script>
 <script src="js/custom.js"></script>

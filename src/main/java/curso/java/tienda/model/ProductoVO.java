@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductoVO {
 	
-	int id;
-	String nombre;
-	String descripcion;
-	Double precio;
-	Double impuesto;
-	int stock;
-	int idCategoria;
-	Date fechaAlta;
-	Date fechaBaja;
-	String imagen;
+	private int id;
+	private String nombre;
+	private String descripcion;
+	private Double precio;
+	private float impuesto;
+	private int stock;
+	private int idCategoria;
+	private Date fechaAlta;
+	private Date fechaBaja;
+	private String imagen;
 }

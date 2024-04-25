@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import curso.java.tienda.model.PedidoVO;
 import curso.java.tienda.util.Conexion;
@@ -17,46 +18,57 @@ import lombok.Data;
 @Data
 public class PedidoDAO {
 
-	public static PedidoVO crearPedido(PedidoVO pedido) {
-        Connection conexion = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+	public static void crearPedido(PedidoVO pedido) {
+		try {
+            Connection con = Conexion.getConexion();
+            String query = "INSERT INTO pedidos (id_usuario, metodo_pago, num_factura, total) " +
+                           "VALUES (?, ?, ?, ?)";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, pedido.getIdUsuario());
+            st.setString(2, pedido.getMetodoPago());
+            st.setString(3, pedido.getNumFactura());
+            st.setDouble(4, pedido.getTotal());
 
-        try {
-            // Obtener la conexión
-            conexion = Conexion.getConexion();
-
-            // Consulta SQL para insertar un nuevo pedido
-            String sql = "INSERT INTO pedidos (id_usuario, fecha, metodo_pago, num_factura, total) VALUES (?, ?, ?, ?, ?)";
-
-            // Preparar la declaración SQL con los parámetros del pedido
-            stmt = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, pedido.getIdUsuario());
-            stmt.setDate(2, new java.sql.Date(pedido.getFecha().getTime())); // Convertir la fecha de java.util.Date a java.sql.Date
-            stmt.setString(3, pedido.getMetodoPago());
-            stmt.setString(4, pedido.getNumFactura());
-            stmt.setDouble(5, pedido.getTotal());
-
-            // Ejecutar la consulta
-            int filasInsertadas = stmt.executeUpdate();
-
-            // Verificar si se insertó correctamente y obtener el ID generado
+            int filasInsertadas = st.executeUpdate();
             if (filasInsertadas > 0) {
-                rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    int idGenerado = rs.getInt(1);
-                    pedido.setId(idGenerado); // Establecer el ID generado en el objeto PedidoVO
-                }
+                System.out.println("Pedido realizado correctamente.");
             } else {
-                // Si no se insertó correctamente, retornar null o lanzar una excepción según el caso
-                return null;
+                System.out.println("Error al realizar el pedido.");
             }
+
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Manejo de excepciones (retornar null, lanzar excepción personalizada, etc.)
-            return null;
-        } 
+        }
+    }
+	
+	public static PedidoVO buscarPedidoNumFactura(String numFactura) {
+        PedidoVO pedido = null;
 
-        return pedido;
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE num_factura = ?");
+            st.setString(1, numFactura);
+
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                int idPedido = rs.getInt("id");
+                int idUsuario = rs.getInt("id_usuario");
+                Timestamp fecha = rs.getTimestamp("fecha");
+                String metodoPago = rs.getString("metodo_pago");
+                String estado = rs.getString("estado");
+                double total = rs.getDouble("total");
+
+                pedido = new PedidoVO(idPedido, idUsuario, fecha, metodoPago, estado, numFactura, total);
+            }
+
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return pedido;
+
     }
 }

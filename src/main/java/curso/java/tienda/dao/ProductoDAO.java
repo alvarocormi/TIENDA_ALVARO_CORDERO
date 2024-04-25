@@ -39,6 +39,7 @@ public class ProductoDAO {
 				producto.setPrecio(rs.getDouble("precio"));
 				producto.setStock(rs.getInt("stock"));
 				producto.setIdCategoria(rs.getInt("id_categoria"));
+				producto.setImpuesto(rs.getFloat("impuesto"));
 				
 				
 				lista.add(producto);
@@ -68,6 +69,7 @@ public class ProductoDAO {
 	            producto.setDescripcion(rs.getString("descripcion"));
 	            producto.setPrecio(rs.getDouble("precio"));
 	            producto.setStock(rs.getInt("stock"));
+	            producto.setImpuesto(rs.getFloat("impuesto"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -75,5 +77,43 @@ public class ProductoDAO {
 
 	    return producto;
 	}
+	
+	public static int comprobarStock(int id) {
+		try {
+	        Connection con = Conexion.getConexion();
+	        PreparedStatement st = con.prepareStatement("SELECT * FROM productos WHERE id = ?");
+	        st.setInt(1, id);
+	        ResultSet rs = st.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getInt("stock");
+
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+		return -1;
+	}
+	
+	public static void actualizarStock(int idProducto, int cantidadComprada) {
+		Connection con = Conexion.getConexion();
+        try {
+            String sql = "UPDATE productos SET stock = stock - ? WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, cantidadComprada);
+            stmt.setInt(2, idProducto);
+            
+            int filasActualizadas = stmt.executeUpdate();
+            if (filasActualizadas == 0) {
+                System.out.println("No se encontró ningún producto con el ID proporcionado.");
+            } else {
+                System.out.println("Stock actualizado correctamente.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

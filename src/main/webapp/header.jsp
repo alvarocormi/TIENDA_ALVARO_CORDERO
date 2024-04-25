@@ -62,9 +62,9 @@
  %> </a></li>
 					<li><a class="nav-link" href="CarritoServlet"> <img
 							src="images/cart.svg"> <%
- Object totalCarrito = session.getAttribute("totalCarrito");
+ Map<ProductoVO, Integer> carrito = (Map<ProductoVO, Integer>) request.getSession().getAttribute("carrito");
 
- out.println(totalCarrito != null ? totalCarrito : "");
+ out.println(carrito != null ? carrito.size() : "");
  %>
 					</a></li>
 				</ul>

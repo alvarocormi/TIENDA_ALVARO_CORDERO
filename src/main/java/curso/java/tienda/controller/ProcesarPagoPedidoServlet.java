@@ -1,8 +1,10 @@
 package curso.java.tienda.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,21 +17,25 @@ import curso.java.tienda.dao.PedidoDAO;
 import curso.java.tienda.model.PedidoVO;
 import curso.java.tienda.model.ProductoVO;
 import curso.java.tienda.model.UsuarioVO;
+import curso.java.tienda.dao.DetallePedidoDAO;
+import curso.java.tienda.model.DetallePedidoVO;
+import curso.java.tienda.dao.ProductoDAO;
 
 @WebServlet("/ProcesarPagoPedidoServlet")
 public class ProcesarPagoPedidoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public ProcesarPagoPedidoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ProcesarPagoPedidoServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// RECUPERAR EL CARRITO DEL USUARIO
 		// AÑADIR REGISTRO DE DATOS DEL PEDIDO Y ACTUALIZAR LAS TABLAS CORRESPONDIENTES
 		// MOSTRAR MENSAJE DE QUE SEA REALIZADO LA COMPRA Y REDIRIGIR A ""
-		
+
 		HttpSession sessionPedido = request.getSession(false);
 		HashMap<ProductoVO, Integer> carrito = (HashMap<ProductoVO, Integer>) sessionPedido.getAttribute("carrito");
 
@@ -37,27 +43,59 @@ public class ProcesarPagoPedidoServlet extends HttpServlet {
 		double total = 0;
 
 		// Verificamos si el carrito no es nulo
-		if (carrito != null) {
-		    // Iteramos sobre las entradas del carrito
-		    for (HashMap.Entry<ProductoVO, Integer> entry : carrito.entrySet()) {
-		        // Obtenemos el precio del producto y la cantidad
-		        ProductoVO producto = entry.getKey();
-		        int cantidad = entry.getValue();
+		if (carrito.size() > 0) {
+			for (HashMap.Entry<ProductoVO, Integer> entry : carrito.entrySet()) {
+				ProductoVO producto = entry.getKey();
+				int cantidad = entry.getValue();
+				int stock = ProductoDAO.comprobarStock(producto.getId());
+				if (stock != -1) {
+					if (stock < cantidad) {
+						// REDIRIGIR A LA VISTA E INDICAR QUE PRODUCTO SE A QUEDADO SIN STOCK
+						request.getRequestDispatcher("CarritoServlet").forward(request, response);
+						return;
+					}
+				}
 
-		        // Calculamos el subtotal para este producto y lo sumamos al total
-		        total += producto.getPrecio() * cantidad;
-		    }
+				total += producto.getPrecio() * cantidad;
+			}
+
+			UsuarioVO u = (UsuarioVO) sessionPedido.getAttribute("usuario");
+			Date fechaActual = new Date();
+			String numFactura = "fa" + u.getId();
+			PedidoVO pedido = new PedidoVO(u.getId(), request.getParameter("metodoPago"), numFactura, total);
+
+			PedidoDAO.crearPedido(pedido);
+			PedidoVO pedidoInsertado = PedidoDAO.buscarPedidoNumFactura(numFactura);
+			
+
+			List<DetallePedidoVO> detalles = new ArrayList<>();
+
+			for (HashMap.Entry<ProductoVO, Integer> entry : carrito.entrySet()) {
+				ProductoVO producto = entry.getKey();
+				int cantidad = entry.getValue();
+				double totalMasImpuesto = ((producto.getPrecio()*producto.getImpuesto())+producto.getPrecio())*cantidad;
+				DetallePedidoVO detalle = new DetallePedidoVO(pedidoInsertado.getId(), producto.getId(), producto.getPrecio(), cantidad, producto.getImpuesto(), totalMasImpuesto);
+				detalles.add(detalle);
+			}
+			
+			DetallePedidoDAO.rellenarDetallePedido(detalles);
+			
+			// ACTUALIZO LA TABLA DE PRODUCTOS CON EL NUEVO STOCK DESPUES DE LA VENTA
+			for (HashMap.Entry<ProductoVO, Integer> entry : carrito.entrySet()) {
+				ProductoVO producto = entry.getKey();
+				int cantidad = entry.getValue(); 
+				
+				ProductoDAO.actualizarStock(producto.getId(), cantidad);
+			}
+			
+			sessionPedido.setAttribute("carrito", null);
+			request.getRequestDispatcher("").forward(request, response);
+
+		}else {
+			// REDIRIGIR E INDICAR QUE EL CARRITO ESTA VACIO
+			request.getRequestDispatcher("cart.jsp").forward(request, response);
 		}
-		
-		UsuarioVO u = (UsuarioVO) sessionPedido.getAttribute("usuario");
-		Date fechaActual = new Date();
-		String numFactura =  "fa"+u.getId();
-		PedidoVO pedido = new PedidoVO(1,u.getId(), fechaActual, request.getParameter("metodoPago"), numFactura, total,null);
-		
-		
-		
-		PedidoDAO.crearPedido(pedido);
-		
+
 	}
 
 }

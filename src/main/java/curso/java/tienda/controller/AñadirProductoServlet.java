@@ -50,13 +50,6 @@ public class AñadirProductoServlet extends HttpServlet {
 			
 			carrito.put(ProductoDAO.findById(Integer.parseInt(id)), cantidad + 1);
 
-			Integer totalCarrito = (Integer) session.getAttribute("totalCarrito");
-			if (totalCarrito == null) {
-				totalCarrito = 0;
-			}
-			session.setAttribute("totalCarrito", carrito.size());
-			
-
 		}
 		
 		

@@ -26,7 +26,7 @@
 						<div class="col-md-6">
 							<label for="c_fname" class="text-black">Nombre <span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control" id="nombre" name="nonbre"  value="<%= (usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : "" %>">
+								class="form-control" id="nombre" name="nombre"  value="<%= (usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : "" %>">
 						</div>
 						<div class="col-md-6">
 							<label for="c_lname" class="text-black">Primer Apellido <span
