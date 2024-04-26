@@ -51,7 +51,7 @@
 								<td><%=pedido.getEstado()%></td>
 								<td><%=pedido.getTotal()%></td>
 								<td><a
-									href="BorrarProductoCarritoServlet?idPedido=<%=pedido.getId()%>"
+									href="BorrarPedidoListadoServlet?numFactura=<%=pedido.getNumFactura()%>"
 									class="btn btn-black btn-sm">X</a></td>
 							</tr>
 						</tbody>
