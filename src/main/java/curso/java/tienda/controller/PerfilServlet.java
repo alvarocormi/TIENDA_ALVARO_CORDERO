@@ -28,11 +28,9 @@ public class PerfilServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
              
@@ -45,30 +43,13 @@ public class PerfilServlet extends HttpServlet {
 	        	request.getRequestDispatcher("perfil.jsp").forward(request, response);
 	        }
 	}
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	// TODO Auto-generated method stub
+    	super.doPost(req, resp);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sessionLogin = request.getSession(true);
-		UsuarioVO usuario = (UsuarioVO) sessionLogin.getAttribute("usuario");
-		
-		String nombre = request.getParameter("nombre");
-		String apellido1 = request.getParameter("apellido1");
-		String apellido2 = request.getParameter("apellido2");
-		String direccion = request.getParameter("direccion");
-		String dni = request.getParameter("dni");
-		String email = usuario.getEmail();
-		String localidad = request.getParameter("localidad");
-		String provincia = request.getParameter("provincia");
-		String telefono = request.getParameter("telefono");
-		
-		UsuarioService.editarUsuario(nombre, apellido1, apellido2, direccion, dni, email, localidad, provincia, telefono);
-		
-		
-		sessionLogin.setAttribute("usuario", UsuarioService.recuperarUsuario(email));
-    	request.getRequestDispatcher("perfil.jsp").forward(request, response);
-		
-	}
+	
 
 }

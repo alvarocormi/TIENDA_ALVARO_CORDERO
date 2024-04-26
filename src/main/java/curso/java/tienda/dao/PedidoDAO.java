@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import curso.java.tienda.model.PedidoVO;
+import curso.java.tienda.model.ProductoVO;
 import curso.java.tienda.util.Conexion;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -69,6 +72,38 @@ public class PedidoDAO {
             e.printStackTrace();
         }
 		return pedido;
+
+    }
+	
+	public static List<PedidoVO> listarPedidosUsuario(int idUsuario) {
+       
+		List<PedidoVO> lista = new ArrayList<PedidoVO>();
+		PedidoVO pedido = null;
+
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE id_usuario = ?");
+            st.setInt(1, idUsuario);
+
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+            	pedido = new PedidoVO();
+            	pedido.setId(rs.getInt("id"));
+                pedido.setFecha(rs.getTimestamp("fecha"));
+                pedido.setMetodoPago(rs.getString("metodo_pago"));
+                pedido.setEstado(rs.getString("estado"));
+                pedido.setTotal(rs.getDouble("total"));
+                pedido.setNumFactura(rs.getString("num_factura"));
+
+                lista.add(pedido);
+            }
+
+          
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return lista;
 
     }
 }

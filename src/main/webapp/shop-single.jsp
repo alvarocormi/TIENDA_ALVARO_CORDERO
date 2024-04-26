@@ -6,6 +6,7 @@
 <%@page import="curso.java.tienda.dao.ProductoDAO"%>
 <%@ page import="java.util.List,curso.java.tienda.model.ProductoVO"%>
 <%@ include file="header.jsp"%>
+
 <!-- Modal -->
 <div class="modal fade bg-white" id="templatemo_search" tabindex="-1"
 	role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,7 +31,38 @@
 <%
 ProductoVO producto = (ProductoVO) request.getAttribute("producto");
 %>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentValue = 1;
+        var maxValue = <%= producto.getStock() %>; // Obtener el stock máximo del producto desde tu servidor
 
+        // Función para actualizar la cantidad mostrada y el valor del campo oculto
+        function updateQuantity(value) {
+            if (value >= 1 && value <= maxValue) {
+                currentValue = value;
+                document.getElementById('var-value').textContent = currentValue;
+                document.getElementById('product-quantity').value = currentValue;
+            }
+        }
+
+        // Botón de incremento
+        document.getElementById('btn-plus').addEventListener('click', function() {
+            if (currentValue < maxValue) {
+                updateQuantity(currentValue + 1);
+            }
+        });
+
+        // Botón de decremento
+        document.getElementById('btn-minus').addEventListener('click', function() {
+            if (currentValue > 1) {
+                updateQuantity(currentValue - 1);
+            }
+        });
+
+        // Inicializar el valor de la cantidad
+        updateQuantity(currentValue);
+    });
+</script>
 <!-- Open Content -->
 <section class="mb-5">
 	<div class="container pb-5">
@@ -62,31 +94,31 @@ ProductoVO producto = (ProductoVO) request.getAttribute("producto");
 								</p>
 							</li>
 						</ul>
-<!-- 						<form action="" method="GET"> -->
-
-<!-- 							<div class="col-auto"> -->
-<!-- 								<ul class="list-inline pb-3"> -->
-<!-- 									<li class="list-inline-item text-right">Quantity <input -->
-<!-- 										type="hidden" name="product-quanity" id="product-quanity" -->
-<!-- 										value="1"> -->
-<!-- 									</li> -->
-<!-- 									<li class="list-inline-item"><span class="btn btn-success" -->
-<!-- 										id="btn-minus">-</span></li> -->
-<!-- 									<li class="list-inline-item"><span -->
-<!-- 										class="badge bg-secondary" id="var-value">1</span></li> -->
-<!-- 									<li class="list-inline-item"><span class="btn btn-success" -->
-<!-- 										id="btn-plus">+</span></li> -->
-<!-- 								</ul> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
 					</div>
-					<form action="AñadirProductoServlet?id=<%=producto.getId()%>">
-						<input class="btn m-3" type="submit" value="Añadir al Carrito"></input>
+					<form action="AñadirProductoServlet" method="GET">
+						<input type="hidden" name="id" value="<%=producto.getId()%>">
+						<input type="hidden" name="product-quantity" id="product-quantity"
+							value="1">
+
+						<!-- Botones de incremento y decremento -->
+						<div class="col-auto">
+							<ul class="list-inline pb-3">
+								<li class="list-inline-item text-right">Quantity</li>
+								<li class="list-inline-item"><span class="btn btn-success"
+									id="btn-minus">-</span></li>
+								<li class="list-inline-item"><span
+									class="badge bg-secondary" id="var-value">1</span></li>
+								<li class="list-inline-item"><span class="btn btn-success"
+									id="btn-plus">+</span></li>
+							</ul>
+						</div>
+
+						<!-- Botón de submit -->
+						<input class="btn m-3" type="submit" value="Añadir al Carrito">
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </section>
 <%@ include file="footer.jsp"%>
@@ -95,6 +127,7 @@ ProductoVO producto = (ProductoVO) request.getAttribute("producto");
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/tiny-slider.js"></script>
 <script src="js/custom.js"></script>
+
 
 </body>
 

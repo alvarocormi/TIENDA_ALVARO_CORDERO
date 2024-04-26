@@ -36,8 +36,9 @@ public class AñadirProductoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if (request.getParameter("id") != null) {
+
 			String id = request.getParameter("id");
-			
+			String quantity = request.getParameter("product-quantity");
 			
 			HashMap<ProductoVO, Integer> carrito = (HashMap<ProductoVO, Integer>) session.getAttribute("carrito");
 
@@ -48,7 +49,7 @@ public class AñadirProductoServlet extends HttpServlet {
 
 			Integer cantidad = carrito.getOrDefault(ProductoDAO.findById(Integer.parseInt(id)), 0);
 			
-			carrito.put(ProductoDAO.findById(Integer.parseInt(id)), cantidad + 1);
+			carrito.put(ProductoDAO.findById(Integer.parseInt(id)), cantidad + Integer.parseInt(quantity));
 
 		}
 		

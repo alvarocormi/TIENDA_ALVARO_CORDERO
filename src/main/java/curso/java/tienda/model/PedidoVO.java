@@ -26,6 +26,9 @@ public class PedidoVO {
 		this.numFactura = numFactura;
 		this.total = total;
 	}
+
+
+	
     
     
 }
