@@ -48,13 +48,12 @@ session = request.getSession();
 			<!-- Start Column 1 -->
 			<div class="col-12 col-md-4 col-lg-3 mb-5">
 				<a class="product-item"
-					href="AñadirProductoServlet?id=<%=producto.getId()%>"> <img
-					src="images/product-3.png" class="img-fluid product-thumbnail">
+					href="DetalleProductoServlet?id=<%=producto.getId()%>"> <img
+					src="images/<%=producto.getImagen()%>" class="img-fluid product-thumbnail">
 					<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
 					class="product-price"><%=producto.getPrecio() + "€"%></strong> <span
 					class="icon-cross"> <img src="images/cross.svg"
-						class="img-fluid"> <a
-						href="AñadirProductoServlet?id=<%=producto.getId()%>"></span>
+						class="img-fluid"></span>
 				</a>
 			</div>
 

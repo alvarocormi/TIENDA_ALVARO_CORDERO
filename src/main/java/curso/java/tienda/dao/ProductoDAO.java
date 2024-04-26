@@ -40,6 +40,7 @@ public class ProductoDAO {
 				producto.setStock(rs.getInt("stock"));
 				producto.setIdCategoria(rs.getInt("id_categoria"));
 				producto.setImpuesto(rs.getFloat("impuesto"));
+				producto.setImagen(rs.getString("imagen"));
 				
 				
 				lista.add(producto);
@@ -70,6 +71,7 @@ public class ProductoDAO {
 	            producto.setPrecio(rs.getDouble("precio"));
 	            producto.setStock(rs.getInt("stock"));
 	            producto.setImpuesto(rs.getFloat("impuesto"));
+	            producto.setImagen(rs.getString("imagen"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
