@@ -23,12 +23,11 @@ public class PedidoDAO {
 	public static void crearPedido(PedidoVO pedido) {
 		try {
 			Connection con = Conexion.getConexion();
-			String query = "INSERT INTO pedidos (id_usuario, metodo_pago, num_factura, total) " + "VALUES (?, ?, ?, ?)";
+			String query = "INSERT INTO pedidos (id_usuario, metodo_pago) " + "VALUES (?, ?)";
 			PreparedStatement st = con.prepareStatement(query);
 			st.setInt(1, pedido.getIdUsuario());
 			st.setString(2, pedido.getMetodoPago());
-			st.setString(3, pedido.getNumFactura());
-			st.setDouble(4, pedido.getTotal());
+
 
 			int filasInsertadas = st.executeUpdate();
 			if (filasInsertadas > 0) {
@@ -43,25 +42,25 @@ public class PedidoDAO {
 		}
 	}
 
-	public static PedidoVO buscarPedidoNumFactura(String numFactura) {
+	public static PedidoVO buscarPedidoId(int id) {
 		PedidoVO pedido = null;
 
 		try {
 			Connection con = Conexion.getConexion();
-			PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE num_factura = ?");
-			st.setString(1, numFactura);
+			PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE id = ?");
+			st.setInt(1, id);
 
 			ResultSet rs = st.executeQuery();
 
 			if (rs.next()) {
-				int idPedido = rs.getInt("id");
 				int idUsuario = rs.getInt("id_usuario");
 				Timestamp fecha = rs.getTimestamp("fecha");
 				String metodoPago = rs.getString("metodo_pago");
 				String estado = rs.getString("estado");
 				double total = rs.getDouble("total");
+				String numFactura = rs.getString("num_factura");
 
-				pedido = new PedidoVO(idPedido, idUsuario, fecha, metodoPago, estado, numFactura, total);
+				pedido = new PedidoVO(id, idUsuario, fecha, metodoPago, estado, numFactura, total);
 			}
 
 			rs.close();
@@ -73,14 +72,14 @@ public class PedidoDAO {
 
 	}
 
-	public static List<PedidoVO> listarPedidosUsuario(int idUsuario) {
+	public static List<PedidoVO> listarPedidosUsuario(int idUsuario, String orden) {
 
 		List<PedidoVO> lista = new ArrayList<PedidoVO>();
 		PedidoVO pedido = null;
 
 		try {
 			Connection con = Conexion.getConexion();
-			PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE id_usuario = ?");
+			PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE id_usuario = ? ORDER BY fecha "+ orden);
 			st.setInt(1, idUsuario);
 
 			ResultSet rs = st.executeQuery();
@@ -103,6 +102,8 @@ public class PedidoDAO {
 		return lista;
 
 	}
+	
+	
 
 	public static String asignarNumFactura(int idUsuario) {
 
@@ -126,20 +127,47 @@ public class PedidoDAO {
 		return "FA" + (numFactura + 1) + "-US" + idUsuario;
 	}
 
-	public static void cancelarPedido(String numFactura) {
+	public static void cancelarPedido(int id) {
 		Connection con = Conexion.getConexion();
 		try {
-			String sql = "UPDATE pedidos SET estado = 'PC' WHERE num_factura = ?";
+			String sql = "UPDATE pedidos SET estado = 'PC' WHERE id = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 
-			stmt.setString(1, numFactura);
+			stmt.setInt(1, id);
 
-			int filasActualizadas = stmt.executeUpdate();
-			if (filasActualizadas == 0) {
-				System.out.println("No se encontró ningún pedido con el numFactura proporcionado.");
-			}
+			stmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static PedidoVO buscarUltimoPedidoPorUsuario(int id_usuario) {
+	    PedidoVO pedido = null;
+	 
+	    try {
+	        Connection con = Conexion.getConexion();
+	        PreparedStatement st = con.prepareStatement("SELECT * FROM pedidos WHERE id_usuario = ? ORDER BY fecha DESC LIMIT 1");
+	        st.setInt(1, id_usuario);
+	 
+	        ResultSet rs = st.executeQuery();
+	        
+	        if (rs.next()) {
+	            int idPedido = rs.getInt("id");
+	            Timestamp fecha = rs.getTimestamp("fecha");
+	            String metodoPago = rs.getString("metodo_pago");
+	            String estado = rs.getString("estado");
+	            String numFactura = rs.getString("num_factura");
+	            double total = rs.getDouble("total");
+	 
+	            pedido = new PedidoVO(idPedido, id_usuario, fecha, metodoPago, estado, numFactura, total);
+	        }
+	 
+	        rs.close();
+	        st.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return pedido;
 	}
 }

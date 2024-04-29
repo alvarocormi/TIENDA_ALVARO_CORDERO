@@ -25,12 +25,21 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th class="product-detail">Detalle</th>
 								<th class="product-thumbnail">NumFactura</th>
-								<th class="product-name">Fecha</th>
+								<th class="product-name">Fecha <a
+									style="text-decoration: none"
+									; href="ListadoPedidosServlet?orden=asc"> <i
+										class="fas fa-arrow-up"></i>
+								</a> <a style="text-decoration: none;"
+									href="ListadoPedidosServlet?orden=desc"> <i
+										class="fas fa-arrow-down"></i>
+								</a></th>
 								<th class="product-price">MetodoPago</th>
 								<th class="product-quantity">Estado</th>
 								<th class="product-total">Total</th>
 								<th class="product-remove">Remove</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -43,15 +52,17 @@
 							%>
 
 							<tr>
+								<td><a href="DetallePedidoServlet?idPedido=<%= pedido.getId() %>"
+									style="text-decoration: none">Ver</a></td>
 								<td class="product-name">
-									<h2 class="h5 text-black"><%=pedido.getNumFactura()%></h2>
+									<h2 class="h5 text-black"><%=pedido.getNumFactura() != null ? pedido.getNumFactura() : ""  %></h2>
 								</td>
 								<td><%=pedido.getFecha()%></td>
 								<td><%=pedido.getMetodoPago()%></td>
 								<td><%=pedido.getEstado()%></td>
-								<td><%=pedido.getTotal()%></td>
+								<td><%=pedido.getTotal()  != 0 ? pedido.getTotal() : "" %></td>
 								<td><a
-									href="BorrarPedidoListadoServlet?numFactura=<%=pedido.getNumFactura()%>"
+									href="BorrarPedidoListadoServlet?id=<%=pedido.getId()%>"
 									class="btn btn-black btn-sm">X</a></td>
 							</tr>
 						</tbody>
@@ -68,7 +79,7 @@
 				<div class="row mb-5">
 					<div class="col-md-6">
 						<a class="btn btn-outline-black btn-sm btn-block"
-							href="PerfilServlet">Volver</a> 
+							href="PerfilServlet">Volver</a>
 					</div>
 				</div>
 			</div>

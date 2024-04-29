@@ -1,7 +1,6 @@
 package curso.java.tienda.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,23 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import curso.java.tienda.model.PedidoVO;
-import curso.java.tienda.model.UsuarioVO;
-import curso.java.tienda.service.ListadoPedidosService;
+import curso.java.tienda.dao.ProductoDAO;
+import curso.java.tienda.model.DetallePedidoVO;
+import curso.java.tienda.model.ProductoVO;
+import curso.java.tienda.service.DetallePedidoService;
 
 /**
- * Servlet implementation class ListadoPedidosServlet
+ * Servlet implementation class DetallePedidoServlet
  */
-@WebServlet("/ListadoPedidosServlet")
-public class ListadoPedidosServlet extends HttpServlet {
+@WebServlet("/DetallePedidoServlet")
+public class DetallePedidoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListadoPedidosServlet() {
+    public DetallePedidoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +33,18 @@ public class ListadoPedidosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<PedidoVO> pedidos = new ArrayList<PedidoVO>();
 		
-		HttpSession session = request.getSession(true);
-		UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
-		
-		String orden = request.getParameter("orden");
-		
-		if (orden == null) {	
-			orden = "desc";
+		if (request.getParameter("idPedido") != null) {
+			String idPedido = request.getParameter("idPedido");
+
+			List<DetallePedidoVO> listaDetallePedido = DetallePedidoService.buscarDetallePedido(Integer.parseInt(idPedido));
+			
+			request.setAttribute("detallesPedido", listaDetallePedido);
+			
+			request.getRequestDispatcher("listadoDetallePedidos.jsp").forward(request, response);
+
 		}
 		
-		pedidos = ListadoPedidosService.listarPedidos(usuario.getId(), orden);
-		System.out.println(orden);
-		
-		
-		request.setAttribute("pedidos", pedidos);
-		request.getRequestDispatcher("listadoPedidos.jsp").forward(request, response);
 	}
 
 	/**

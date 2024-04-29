@@ -40,17 +40,18 @@ public class UsuarioDAO {
 		return false; // Credenciales inválidas o error en la consulta
 	}
 
-	public static void agregarUsuario(String email, String clave) throws SQLException {
+	public static void agregarUsuario(int rol,String email, String clave) throws SQLException {
 
-		String sql = "INSERT INTO usuarios (email, clave) VALUES (?,?)";
+		String sql = "INSERT INTO usuarios (id_rol, email, clave) VALUES (?,?,?)";
 		Connection c = Conexion.getConexion();
 		PreparedStatement stmt;
 
 		try {
 
 			stmt = c.prepareStatement(sql);
-			stmt.setString(1, email);
-			stmt.setString(2, clave);
+			stmt.setInt(1, rol);
+			stmt.setString(2, email);
+			stmt.setString(3, clave);
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {

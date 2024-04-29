@@ -49,7 +49,7 @@
 					<li class="nav-item active"><a class="nav-link"
 						href="/TIENDA_ALVARO_CORDERO/">Inicio</a></li>
 					<li><a class="nav-link" href="TiendaServlet">Tienda</a></li>
-					<li><a class="nav-link" href="contact.html">Contact us</a></li>
+					<li><a class="nav-link" href="ContactServlet">Contactar</a></li>
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">

@@ -1,6 +1,7 @@
 package curso.java.tienda;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.model.ProductoVO;
 import curso.java.tienda.service.ProductoService;
@@ -23,6 +25,7 @@ import curso.java.tienda.service.ProductoService;
 @WebServlet("")
 public class EntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,6 +41,7 @@ public class EntradaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 
 		// Si todo ha ido bien creo el carrito
 		if (request.getSession().getAttribute("carrito") == null) {

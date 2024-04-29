@@ -23,4 +23,14 @@ public class DetallePedidoVO {
 		this.impuesto = impuesto;
 		this.total = total;
 	}
+
+	public DetallePedidoVO(int id, int idProducto, double precioUnidad, int unidades, double total) {
+		this.id = id;
+		this.idProducto = idProducto;
+		this.precioUnidad = precioUnidad;
+		this.unidades = unidades;
+		this.total = total;
+	}
+	
+	
 }

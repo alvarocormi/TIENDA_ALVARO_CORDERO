@@ -42,9 +42,9 @@ public class BorrarPedidoListadoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String numFactura = request.getParameter("numFactura");
+		String id = request.getParameter("id");
 
-		PedidoDAO.cancelarPedido(numFactura);
+		PedidoDAO.cancelarPedido(Integer.parseInt(id));
 
 		request.getRequestDispatcher("ListadoPedidosServlet").forward(request, response);
 	}

@@ -13,7 +13,8 @@ session = request.getSession();
 					<h1>
 						Interiores Modernos <span class="d-block"></span>
 					</h1>
-					<p class="mb-4">Explora nuestra colección de muebles modernos que fusionan elegancia contemporánea con funcionalidad innovadora.</p>
+					<p class="mb-4">Explora nuestra colección de muebles modernos
+						que fusionan elegancia contemporánea con funcionalidad innovadora.</p>
 					<p>
 						<a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
 							class="btn btn-white-outline">Explore</a>
@@ -41,14 +42,23 @@ session = request.getSession();
 			%>
 			<!-- Start Column 2 -->
 			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-				<a class="product-item"
-					href="DetalleProductoServlet?id=<%=producto.getId()%>"> <img
-					src="images/<%=producto.getImagen()%>" class="img-fluid product-thumbnail">
-					<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
-					class="product-price"><%=producto.getPrecio() + "€"%></strong> <span
-					class="icon-cross"> <img src="images/cross.svg"
-						class="img-fluid"> </span>
-				</a>
+				<div class="product-item">
+					<a style="text-decoration: none"
+						href="DetalleProductoServlet?id=<%=producto.getId()%>"> <img
+						src="images/<%=producto.getImagen()%>"
+						class="img-fluid product-thumbnail">
+						<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
+						class="product-price"><%=producto.getPrecio() + "€"%></strong>
+
+					</a> 
+					<span style="" class="img-fluid"> 
+					<a
+						style="display: flex; justify-content: center; padding-top: 15px; text-decoration: none; "
+						href="AñadirProductoServlet?id=<%=producto.getId()%>&product-quantity=1"
+						class="img-fluid">COMPRAR</a>
+					</span>
+
+				</div>
 			</div>
 			<%
 			}
@@ -415,7 +425,7 @@ session = request.getSession();
 <!-- End Blog Section -->
 
 <!-- Start Footer Section -->
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp"%>
 <!-- End Footer Section -->
 
 <script src="js/bootstrap.bundle.min.js"></script>

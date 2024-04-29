@@ -28,6 +28,14 @@ public class PedidoVO {
 	}
 
 
+	public PedidoVO(int idUsuario, String metodoPago) {
+		this.idUsuario = idUsuario;
+		this.metodoPago = metodoPago;
+	}
+
+
+	
+
 	
     
     

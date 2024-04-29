@@ -48,7 +48,7 @@ public class RegistroServlet extends HttpServlet {
 	            if (!UsuarioService.verificarCredenciales(email, clave)) {
 	                try {
 	                    // El usuario no existe, así que lo agregamos a la base de dato
-	                    UsuarioDAO.agregarUsuario(email, UsuarioService.encriptarClave(clave));
+	                    UsuarioDAO.agregarUsuario(1,email, UsuarioService.encriptarClave(clave));
 	                    HttpSession sessionRegistro = request.getSession(true);
 	                    // Agregamos al usuario a la sesión
 	                    sessionRegistro.setAttribute("usuario", UsuarioService.agregarUsuarioEmail(email));

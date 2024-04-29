@@ -7,7 +7,7 @@ import curso.java.tienda.model.PedidoVO;
 
 public class ListadoPedidosService {
 	
-	public static List<PedidoVO> listarPedidos(int idUsuario) {
-		return PedidoDAO.listarPedidosUsuario(idUsuario);
+	public static List<PedidoVO> listarPedidos(int idUsuario, String orden) {
+		return PedidoDAO.listarPedidosUsuario(idUsuario, orden);
 	}
 }
