@@ -35,7 +35,7 @@
 		arial-label="Furni navigation bar">
 
 		<div class="container">
-			<a class="navbar-brand" href="/TIENDA_ALVARO_CORDERO/">Serbatic<span>.</span></a>
+			<a class="navbar-brand" href="/TIENDA_ALVARO_CORDERO/">Amuebla</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
@@ -46,7 +46,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<li class="nav-item active"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link"
 						href="/TIENDA_ALVARO_CORDERO/">Inicio</a></li>
 					<li><a class="nav-link" href="TiendaServlet">Tienda</a></li>
 					<li><a class="nav-link" href="ContactServlet">Contactar</a></li>
@@ -60,6 +60,15 @@
  	out.println(u.getEmail());
  }
  %> </a></li>
+					<%
+					if (session.getAttribute("usuario") != null) {
+						UsuarioVO u = (UsuarioVO) session.getAttribute("usuario");
+					
+					%>
+					<li style="padding: 0; margin-top: 10px; margin-right: 15px"><a href="LogoutServlet"><i
+							class="fas fa-sign-out-alt fa-inverse fa-lg"></i></a></li>
+
+					<%} %>
 					<li><a class="nav-link" href="CarritoServlet"> <img
 							src="images/cart.svg"> <%
  Map<ProductoVO, Integer> carrito = (Map<ProductoVO, Integer>) request.getSession().getAttribute("carrito");

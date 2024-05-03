@@ -16,8 +16,7 @@ session = request.getSession();
 					<p class="mb-4">Explora nuestra colección de muebles modernos
 						que fusionan elegancia contemporánea con funcionalidad innovadora.</p>
 					<p>
-						<a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-							class="btn btn-white-outline">Explore</a>
+						<a href="TiendaServlet" class="btn btn-secondary me-2">Comprar Ahora</a>
 					</p>
 				</div>
 			</div>
@@ -51,12 +50,12 @@ session = request.getSession();
 						class="product-price"><%=producto.getPrecio() + "€"%></strong>
 
 					</a> 
-					<span style="" class="img-fluid"> 
+				
 					<a
 						style="display: flex; justify-content: center; padding-top: 15px; text-decoration: none; "
 						href="AñadirProductoServlet?id=<%=producto.getId()%>&product-quantity=1"
-						class="img-fluid">COMPRAR</a>
-					</span>
+						class="img-fluid"><i class="fa-solid fa-circle-plus fa-2x"></i></a>
+	
 
 				</div>
 			</div>

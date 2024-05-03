@@ -61,13 +61,9 @@ public class ProcesarPagoPedidoServlet extends HttpServlet {
 
 			UsuarioVO u = (UsuarioVO) sessionPedido.getAttribute("usuario");
 			Date fechaActual = new Date();
-			String numFactura = PedidoDAO.asignarNumFactura(u.getId());
 
-			PedidoVO pedido = new PedidoVO(u.getId(), request.getParameter("metodoPago"));
-
+			PedidoVO pedido = new PedidoVO(u.getId(), request.getParameter("metodoPago"),"PE",0);
 			PedidoDAO.crearPedido(pedido);
-
-
 			PedidoVO pedidoInsertado = PedidoDAO.buscarUltimoPedidoPorUsuario(u.getId());
 			
 

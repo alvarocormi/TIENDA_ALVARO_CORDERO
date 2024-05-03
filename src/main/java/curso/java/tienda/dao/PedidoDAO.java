@@ -23,10 +23,12 @@ public class PedidoDAO {
 	public static void crearPedido(PedidoVO pedido) {
 		try {
 			Connection con = Conexion.getConexion();
-			String query = "INSERT INTO pedidos (id_usuario, metodo_pago) " + "VALUES (?, ?)";
+			String query = "INSERT INTO pedidos (id_usuario, metodo_pago,estado, total) " + "VALUES (?, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(query);
 			st.setInt(1, pedido.getIdUsuario());
 			st.setString(2, pedido.getMetodoPago());
+			st.setString(3, pedido.getEstado());
+			st.setDouble(4, pedido.getTotal());
 
 
 			int filasInsertadas = st.executeUpdate();

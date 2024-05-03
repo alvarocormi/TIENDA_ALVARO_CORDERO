@@ -32,36 +32,43 @@
 ProductoVO producto = (ProductoVO) request.getAttribute("producto");
 %>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var currentValue = 1;
-        var maxValue = <%= producto.getStock() %>; // Obtener el stock máximo del producto desde tu servidor
+	document
+			.addEventListener(
+					'DOMContentLoaded',
+					function() {
+						var currentValue = 1;
+						var maxValue =
+<%=producto.getStock()%>
+	; // Obtener el stock máximo del producto desde tu servidor
 
-        // Función para actualizar la cantidad mostrada y el valor del campo oculto
-        function updateQuantity(value) {
-            if (value >= 1 && value <= maxValue) {
-                currentValue = value;
-                document.getElementById('var-value').textContent = currentValue;
-                document.getElementById('product-quantity').value = currentValue;
-            }
-        }
+						// Función para actualizar la cantidad mostrada y el valor del campo oculto
+						function updateQuantity(value) {
+							if (value >= 1 && value <= maxValue) {
+								currentValue = value;
+								document.getElementById('var-value').textContent = currentValue;
+								document.getElementById('product-quantity').value = currentValue;
+							}
+						}
 
-        // Botón de incremento
-        document.getElementById('btn-plus').addEventListener('click', function() {
-            if (currentValue < maxValue) {
-                updateQuantity(currentValue + 1);
-            }
-        });
+						// Botón de incremento
+						document.getElementById('btn-plus').addEventListener(
+								'click', function() {
+									if (currentValue < maxValue) {
+										updateQuantity(currentValue + 1);
+									}
+								});
 
-        // Botón de decremento
-        document.getElementById('btn-minus').addEventListener('click', function() {
-            if (currentValue > 1) {
-                updateQuantity(currentValue - 1);
-            }
-        });
+						// Botón de decremento
+						document.getElementById('btn-minus').addEventListener(
+								'click', function() {
+									if (currentValue > 1) {
+										updateQuantity(currentValue - 1);
+									}
+								});
 
-        // Inicializar el valor de la cantidad
-        updateQuantity(currentValue);
-    });
+						// Inicializar el valor de la cantidad
+						updateQuantity(currentValue);
+					});
 </script>
 <!-- Open Content -->
 <section class="mb-5">
@@ -102,14 +109,14 @@ ProductoVO producto = (ProductoVO) request.getAttribute("producto");
 
 						<!-- Botones de incremento y decremento -->
 						<div class="col-auto">
-							<ul class="list-inline pb-3">
-								<li class="list-inline-item text-right">Quantity</li>
+							<ul class="list-inline pb-3" style="margin-left: 15px;">
+								<h6><li class="list-inline-item text-right">Quantity</li></h6>
 								<li class="list-inline-item"><span class="btn btn-success"
-									id="btn-minus">-</span></li>
+									id="btn-minus" style="padding: 5px; width: 45px;">-</span></li>
 								<li class="list-inline-item"><span
-									class="badge bg-secondary" id="var-value">1</span></li>
+									class="badge" id="var-value" style="color: black; font-size: 14px;">1</span></li>
 								<li class="list-inline-item"><span class="btn btn-success"
-									id="btn-plus">+</span></li>
+									id="btn-plus" style="padding: 5px; width: 45px;">+</span></li>
 							</ul>
 						</div>
 

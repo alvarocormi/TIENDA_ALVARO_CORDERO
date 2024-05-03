@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.model.ProductoVO;
 
 public class ProductoService  {
@@ -63,6 +64,10 @@ public class ProductoService  {
 	        Collections.sort(listaOrdenada, comparadorPorCategoria);
 
 	        return listaOrdenada;
+	    }
+	    
+	    public static int comprobarStock(int id) {
+	    	return ProductoDAO.comprobarStock(id);
 	    }
 
 }

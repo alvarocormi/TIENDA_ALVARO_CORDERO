@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-md-6 mb-5 mb-md-0">
 				<div class="form-group row">
-					<form action="PerfilServlet" method="post" class="row">
+					<form action="EditarPerfilServlet" method="post" class="row">
 						<%
 						UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
 						%>

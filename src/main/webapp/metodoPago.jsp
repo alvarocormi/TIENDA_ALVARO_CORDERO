@@ -16,7 +16,7 @@
 								<div class="form-check">
 									<label class="form-check-label" for="flexRadioDefault1"><input
 										class="form-check-input text-black mb-3" type="radio"
-										name="metodoPago" checked> PayPal</label>
+										name="metodoPago" value="paypal" checked> PayPal</label>
 								</div>
 								<div class="form-check">
 

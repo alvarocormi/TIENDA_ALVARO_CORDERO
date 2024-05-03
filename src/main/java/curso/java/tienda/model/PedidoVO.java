@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class PedidoVO {
 	
     private int id;
@@ -19,19 +18,23 @@ public class PedidoVO {
     private double total;
     
     
-	public PedidoVO(int idUsuario, String metodoPago, String numFactura, double total) {
-		super();
+
+
+	public PedidoVO() {
+	}
+
+
+
+
+	public PedidoVO(int idUsuario, String metodoPago, String estado, double total) {
 		this.idUsuario = idUsuario;
 		this.metodoPago = metodoPago;
-		this.numFactura = numFactura;
+		this.estado = estado;
 		this.total = total;
 	}
+	
 
-
-	public PedidoVO(int idUsuario, String metodoPago) {
-		this.idUsuario = idUsuario;
-		this.metodoPago = metodoPago;
-	}
+	
 
 
 	

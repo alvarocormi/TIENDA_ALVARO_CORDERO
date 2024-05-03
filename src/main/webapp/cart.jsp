@@ -126,7 +126,7 @@ function actualizarPagina() {
 										</div>
 										<input id="cantidadInput<%=+producto.getId()%>" name="cantidadInput"
 											class="form-control text-center quantity-amount"
-											value="<%=cantidad%>" placeholder=""
+											value="<%=cantidad <= producto.getStock() ? cantidad : producto.getStock()%>" placeholder=""
 											aria-label="Example text with button addon"
 											aria-describedby="button-addon1"
 											onchange="validarCantidad(this,'<%=producto.getStock()%>'),actualizarCantidad('<%=producto.getId()%>', this.value),actualizarPagina()">
