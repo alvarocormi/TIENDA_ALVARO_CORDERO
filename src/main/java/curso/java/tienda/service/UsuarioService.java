@@ -12,6 +12,10 @@ public class UsuarioService {
 
 	public UsuarioService() {
 	}
+	
+	public static boolean buscarAdmin(String email) {
+		return UsuarioDAO.buscarAdmin(email);
+	}
 
 	public static UsuarioVO agregarUsuarioEmail(String email) {
 		UsuarioVO u = new UsuarioVO(email);
@@ -21,6 +25,15 @@ public class UsuarioService {
 	public static UsuarioVO recuperarUsuario(String email) {
 		return UsuarioDAO.recuperarUsuarioPorEmail(email);
 
+	}
+	
+	public static void agregarUsuario(int rol, String email, String clave) {
+		try {
+			UsuarioDAO.agregarUsuario(rol, email, clave);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static boolean editarUsuario(String nombre, String apellido1, String apellido2, String direccion,

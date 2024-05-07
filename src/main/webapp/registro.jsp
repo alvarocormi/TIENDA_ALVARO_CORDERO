@@ -35,7 +35,7 @@
 								class="form-control" id="c_lname" name="claveRepetida">
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+							<input type="submit" class="btn"
 								value="Registrarse"></input>
 						</div>
 					</form>

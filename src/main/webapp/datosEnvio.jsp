@@ -26,37 +26,44 @@
 						<div class="col-md-6">
 							<label for="c_fname" class="text-black">Nombre <span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control" id="nombre" name="nombre"  value="<%= (usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : "" %>">
+								class="form-control" id="nombre" name="nombre"
+								value="<%=(usuario != null && usuario.getNombre() != null) ? usuario.getNombre() : ""%>">
 						</div>
 						<div class="col-md-6">
 							<label for="c_lname" class="text-black">Primer Apellido <span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control" id="apellido2" name="apellido1" value="<%= (usuario != null && usuario.getApellido1() != null) ? usuario.getApellido1() : "" %>">
+								class="form-control" id="apellido2" name="apellido1"
+								value="<%=(usuario != null && usuario.getApellido1() != null) ? usuario.getApellido1() : ""%>">
 						</div>
 						<div class="col-md-6">
 							<label for="c_lname" class="text-black">Segundo Apellido
 								<span class="text-danger">*</span>
 							</label> <input type="text" class="form-control" id="apellido2"
-								name="apellido2"value="<%= (usuario != null && usuario.getApellido2() != null) ? usuario.getApellido2() : "" %>">
+								name="apellido2"
+								value="<%=(usuario != null && usuario.getApellido2() != null) ? usuario.getApellido2() : ""%>">
 						</div>
 						<div class="col-md-6">
 							<label for="c_lname" class="text-black">Direccion <span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control" id="direccion" name="direccion" value="<%= (usuario != null && usuario.getDireccion() != null) ? usuario.getDireccion() : "" %>">
+								class="form-control" id="direccion" name="direccion"
+								value="<%=(usuario != null && usuario.getDireccion() != null) ? usuario.getDireccion() : ""%>">
 						</div>
 						<div class="col-md-6">
 							<label for="c_lname" class="text-black">Telefono <span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control" id="telefono" name="telefono" value="<%= (usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : "" %>">
+								class="form-control" id="telefono" name="telefono"
+								value="<%=(usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : ""%>">
 						</div>
 						<div class="form-group pt-4">
 							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
-								value="Siguiente"></input>
+								value="Siguiente"></input> <a
+								class="btn btn-black btn-lg py-2 btn-block"
+								style="background: white; color: black" href="CarritoServlet">Volver</a>
+
 						</div>
 					</form>
 				</div>
 
-				<a href="CarritoServlet">Volver</a>
 
 			</div>
 		</div>
