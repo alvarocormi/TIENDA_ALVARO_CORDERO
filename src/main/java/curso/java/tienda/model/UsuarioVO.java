@@ -1,5 +1,7 @@
 package curso.java.tienda.model;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -17,6 +19,7 @@ public class UsuarioVO {
 	private String provincia;
 	private String telefono;
 	private String dni;
+	private Date fecha_baja;
 	
 	public UsuarioVO() {
 		super();

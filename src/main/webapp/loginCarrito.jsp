@@ -35,11 +35,14 @@
 								class="form-control" id="c_lname" name="clave">
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+						<a class="btn" style="background: white; color: black;" href="/TIENDA_ALVARO_CORDERO/">Volver</a> 
+							<input type="submit" class="btn"
 								value="Iniciar Sesion"></input>
 						</div>
 					</form>
 				</div>
+				
+				<p style="color: red; margin-top: 10px; margin-left: 5px; font-size: 15px;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></p>
 
 
 			</div>

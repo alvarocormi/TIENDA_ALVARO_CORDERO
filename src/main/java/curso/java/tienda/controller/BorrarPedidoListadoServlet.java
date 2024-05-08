@@ -43,7 +43,7 @@ public class BorrarPedidoListadoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
-		if (PedidoDAO.buscarPedidoId(Integer.parseInt(id)).getEstado() == "PE") {
+		if (PedidoDAO.buscarPedidoId(Integer.parseInt(id)).getEstado().equals("PE")) {
 			PedidoDAO.cancelarPedido(Integer.parseInt(id));
 		}
 		request.getRequestDispatcher("ListadoPedidosServlet").forward(request, response);

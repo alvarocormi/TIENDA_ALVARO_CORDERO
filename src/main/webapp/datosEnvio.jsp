@@ -50,13 +50,14 @@
 								class="form-control" id="telefono" name="telefono" value="<%= (usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : "" %>">
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+						<a class="btn" style="background: white; color: black;" href="CarritoServlet">Volver</a>
+							<input type="submit" class="btn"
 								value="Siguiente"></input>
 						</div>
 					</form>
 				</div>
 
-				<a href="CarritoServlet">Volver</a>
+				
 
 			</div>
 		</div>

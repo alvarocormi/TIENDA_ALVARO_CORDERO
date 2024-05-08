@@ -75,15 +75,18 @@
 								value="<%=(usuario != null && usuario.getTelefono() != null) ? usuario.getTelefono() : ""%>">
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+						<a class="btn" style="background: white; color: black;" href="PerfilServlet">Volver</a> 
+							<input type="submit" class="btn"
 								value="Editar"></input>
+								
+				<a class="btn"
+					href="CambiarClaveServlet">Cambiar Contraseña</a>
+								
 						</div>
 					</form>
 				</div>
 
-				<a href="PerfilServlet">Volver</a> <a
-					href="CambiarClaveServlet">Cambiar Contraseña</a>
-
+				
 
 			</div>
 		</div>

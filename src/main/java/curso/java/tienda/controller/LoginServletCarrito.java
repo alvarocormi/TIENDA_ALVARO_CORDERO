@@ -32,7 +32,7 @@ public class LoginServletCarrito extends HttpServlet {
 
 		} else {
 			HttpSession sessionLogin = request.getSession(false);
-			sessionLogin.setAttribute("error", "Error de credenciales.");
+			request.setAttribute("error", "Error de credenciales.");
 			request.getRequestDispatcher("loginCarrito.jsp").forward(request, response);
 		}
 

@@ -46,8 +46,8 @@
 								<td><%=detallesPedido.getIdProducto()%></td>
 								<td><%=detallesPedido.getPrecioUnidad()%></td>
 								<td><%=detallesPedido.getUnidades()%></td>
-								<td><%=detallesPedido.getTotal()%></td>
-								<td>
+								<td><%=String.format("%.2f", detallesPedido.getTotal())%></td>		
+							</tr>
 						</tbody>
 						<%
 						}

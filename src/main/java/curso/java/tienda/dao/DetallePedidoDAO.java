@@ -49,7 +49,7 @@ public class DetallePedidoDAO {
 
 			ResultSet rs = st.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				
 				int idDetalle = rs.getInt("id");
 				int idProducto = rs.getInt("id_producto");
@@ -63,11 +63,10 @@ public class DetallePedidoDAO {
 			
 			}
 
-			rs.close();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return listaDetallesPedido;
 
 	}

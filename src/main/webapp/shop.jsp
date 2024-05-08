@@ -17,7 +17,8 @@ session = request.getSession();
 	</div>
 </div>
 <div class="untree_co-section product-section before-footer-section">
-	<div class="form-group" style="width: 10%; margin-left: 16%; margin-top: -70px;">
+	<div class="form-group"
+		style="width: 10%; margin-left: 16%; margin-top: -70px;">
 		<form action="TiendaServlet" method="get" style="margin-bottom: 60px">
 			<label for="filtros" class="text-black">Filtrar <span
 				class="text-danger"></span></label> <select id="filtros" name="filtros"
@@ -46,15 +47,24 @@ session = request.getSession();
 			%>
 
 			<!-- Start Column 1 -->
-			<div class="col-12 col-md-4 col-lg-3 mb-5">
-				<a class="product-item"
-					href="DetalleProductoServlet?id=<%=producto.getId()%>"> <img
-					src="images/<%=producto.getImagen()%>" class="img-fluid product-thumbnail">
-					<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
-					class="product-price"><%=producto.getPrecio() + "€"%></strong> <span
-					class="icon-cross"> <img src="images/cross.svg"
-						class="img-fluid"></span>
-				</a>
+			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+				<div class="product-item">
+					<a style="text-decoration: none"
+						href="DetalleProductoServlet?id=<%=producto.getId()%>"> <img
+						src="images/<%=producto.getImagen()%>"
+						class="img-fluid product-thumbnail">
+						<h3 class="product-title"><%=producto.getNombre()%></h3> <strong
+						class="product-price"><%=producto.getPrecio() + "€"%></strong>
+
+					</a> 
+				
+					<a
+						style="display: flex; justify-content: center; padding-top: 15px; text-decoration: none; "
+						href="AñadirProductoServlet?id=<%=producto.getId()%>&product-quantity=1"
+						class="img-fluid"><i class="fa-solid fa-circle-plus fa-2x"></i></a>
+	
+
+				</div>
 			</div>
 
 			<%

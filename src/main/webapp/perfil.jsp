@@ -22,9 +22,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 mb-5 mb-md-0">
-				<a href="AñadirProductoServlet">Volver</a> 
-				<a href="ListadoPedidosServlet">Ver Pedidos</a>
-				<a href="EditarPerfilServlet">Editar Perfil</a>  
+				<a class="btn" style="background: white; color: black;" href="AñadirProductoServlet">Volver</a> 
+				<a class="btn" href="ListadoPedidosServlet">Ver Pedidos</a>
+				<a class="btn" href="EditarPerfilServlet">Editar Perfil</a>  
 			</div>
 		</div>
 

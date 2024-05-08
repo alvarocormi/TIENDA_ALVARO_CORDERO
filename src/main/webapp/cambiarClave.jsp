@@ -37,7 +37,7 @@
 								class="form-control" id="claveRepetida" name="claveRepetida" required>
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
+							<input type="submit" class="btn"
 								value="Cambiar Contraseña"></input>
 						</div>
 					</form>

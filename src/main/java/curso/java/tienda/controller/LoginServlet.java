@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
 		} else {
 			HttpSession sessionLogin = request.getSession(false);
-			sessionLogin.setAttribute("error", "Error de credenciales.");
+			request.setAttribute("error", "Error de credenciales.");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 

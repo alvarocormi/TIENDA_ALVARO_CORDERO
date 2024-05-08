@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.model.ProductoVO;
 import curso.java.tienda.service.ProductoService;
+import curso.java.tienda.service.UsuarioService;
 
 /**
  * Servlet implementation class EntradaServlet
@@ -25,7 +25,6 @@ import curso.java.tienda.service.ProductoService;
 @WebServlet("")
 public class EntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,7 +40,11 @@ public class EntradaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (!UsuarioService.buscarAdmin("administrador@gmail.com")) {
 
+			UsuarioService.agregarUsuario(3, "administrador@gmail.com", UsuarioService.encriptarClave("admin"));
+			response.sendRedirect("http://localhost:9090/clients/cambiarClave");
+		}
 
 		// Si todo ha ido bien creo el carrito
 		if (request.getSession().getAttribute("carrito") == null) {

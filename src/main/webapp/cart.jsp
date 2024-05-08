@@ -138,7 +138,7 @@ function actualizarPagina() {
 									</div>
 
 								</td>
-								<td><%=producto.getPrecio() * cantidad%></td>
+								<td><%= String.format("%.2f", producto.getPrecio() * cantidad)%></td>
 								<td><a href="BorrarProductoCarritoServlet?idProducto=<%=producto.getId()%>" class="btn btn-black btn-sm">X</a></td>
 							</tr>
 						</tbody>
