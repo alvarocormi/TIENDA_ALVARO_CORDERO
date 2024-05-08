@@ -42,8 +42,14 @@ public class EntradaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		if (!UsuarioService.buscarAdmin("administrador@gmail.com")) {
 
+<<<<<<< HEAD
 			UsuarioService.agregarUsuario(3, "administrador@gmail.com", UsuarioService.encriptarClave("admin"));
 			response.sendRedirect("http://localhost:9090/clients/cambiarClave");
+=======
+		if (!UsuarioService.buscarAdmin("administrador@gmail.com")) {
+				
+				UsuarioService.agregarUsuario(3, "administrador@gmail.com", UsuarioService.encriptarClave("admin"));
+>>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 		}
 
 		// Si todo ha ido bien creo el carrito

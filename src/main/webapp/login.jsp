@@ -35,7 +35,10 @@
 								class="form-control" id="c_lname" name="clave">
 						</div>
 						<div class="form-group pt-4">
+<<<<<<< HEAD
 						<a class="btn" style="background: white; color: black;" href="/TIENDA_ALVARO_CORDERO/">Volver</a> 
+=======
+>>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 							<input type="submit" class="btn"
 								value="Iniciar Sesion"></input>
 						</div>

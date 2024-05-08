@@ -17,9 +17,14 @@ session = request.getSession();
 	</div>
 </div>
 <div class="untree_co-section product-section before-footer-section">
+<<<<<<< HEAD
 	<div class="form-group"
 		style="width: 10%; margin-left: 16%; margin-top: -70px;">
 		<form action="TiendaServlet" method="get" style="margin-bottom: 60px">
+=======
+	<div class="form-group" style="width: 10%; margin-left: 16%; margin-top: -70px;">
+		<form action="TiendaServlet" method="get" style="margin-bottom: 60px;">
+>>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 			<label for="filtros" class="text-black">Filtrar <span
 				class="text-danger"></span></label> <select id="filtros" name="filtros"
 				class="form-control">
