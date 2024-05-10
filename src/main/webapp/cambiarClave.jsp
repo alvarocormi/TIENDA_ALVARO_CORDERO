@@ -37,10 +37,6 @@
 								class="form-control" id="claveRepetida" name="claveRepetida" required>
 						</div>
 						<div class="form-group pt-4">
-<<<<<<< HEAD
-=======
-						<a class="btn" style="background: white; color: black;" href="EditarPerfilServlet">Volver</a>
->>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 							<input type="submit" class="btn"
 								value="Cambiar Contraseña"></input>
 						</div>

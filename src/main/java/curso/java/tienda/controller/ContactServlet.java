@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import curso.java.tienda.dao.ConsultaDAO;
 import curso.java.tienda.model.ConsultaVO;
+import curso.java.tienda.service.EnviarCorreo;
 
 /**
  * Servlet implementation class ContactServlet
@@ -36,9 +37,9 @@ public class ContactServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		String lang = request.getParameter("lang");
-		
+
 		if ("es".equals(lang)) {
 //			request.setAttribute("locale", new Locale("es"));
 			request.getSession().setAttribute("locale", new Locale("es"));
@@ -61,9 +62,13 @@ public class ContactServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		ConsultaVO c = new ConsultaVO(request.getParameter("name"), request.getParameter("apellido"), request.getParameter("email"), request.getParameter("mensaje"));
+		ConsultaVO c = new ConsultaVO(request.getParameter("name"), request.getParameter("apellido"),
+				request.getParameter("email"), request.getParameter("mensaje"));
+
 		try {
 			ConsultaDAO.insertarConsulta(c);
+			EnviarCorreo.enviarCorreo(request.getParameter("name"), request.getParameter("apellido"),
+					request.getParameter("email"), request.getParameter("mensaje"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

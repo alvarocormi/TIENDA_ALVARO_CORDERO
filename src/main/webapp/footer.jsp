@@ -8,7 +8,7 @@
 		<div class="row g-5 mb-5">
 			<div class="col-lg-4">
 				<div class="mb-4 footer-logo-wrap">
-					<a href="#" class="footer-logo">Serbatic<span>.</span></a>
+					<a href="#" class="footer-logo">Amuebla<span>.</span></a>
 				</div>
 				<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis.
 					Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
@@ -71,11 +71,7 @@
 						<script>
 							document.write(new Date().getFullYear());
 						</script>
-						. All Rights Reserved. &mdash; Designed with love by <a
-							href="https://untree.co">Untree.co</a> Distributed By <a
-							hreff="https://themewagon.com">ThemeWagon</a>
-						<!-- License information: https://untree.co/license/ -->
-					</p>
+						
 				</div>
 
 				<div class="col-lg-6 text-center text-lg-end">

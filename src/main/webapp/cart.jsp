@@ -138,15 +138,7 @@ function actualizarPagina() {
 									</div>
 
 								</td>
-<<<<<<< HEAD
 								<td><%= String.format("%.2f", producto.getPrecio() * cantidad)%></td>
-=======
-								<%
-									String total = String.format("%.2f", producto.getPrecio() * cantidad);
-									session.setAttribute("total", total);
-								%>
-								<td><%=String.format("%.2f", producto.getPrecio() * cantidad)%></td>
->>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 								<td><a href="BorrarProductoCarritoServlet?idProducto=<%=producto.getId()%>" class="btn btn-black btn-sm">X</a></td>
 							</tr>
 						</tbody>

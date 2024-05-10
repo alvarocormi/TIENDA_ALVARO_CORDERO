@@ -14,23 +14,17 @@
 		</div>
 	</div>
 </div>
-<%
-UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
-%>
+	<%
+						UsuarioVO usuario = (UsuarioVO) session.getAttribute("usuario");
+						%>
 <!-- End Hero Section -->
 <div class="untree_co-section" style="padding: 3rem 0;">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 mb-5 mb-md-0">
-<<<<<<< HEAD
 				<a class="btn" style="background: white; color: black;" href="AñadirProductoServlet">Volver</a> 
 				<a class="btn" href="ListadoPedidosServlet">Ver Pedidos</a>
 				<a class="btn" href="EditarPerfilServlet">Editar Perfil</a>  
-=======
-				<a class="btn" style="background: white; color: black;" href="AñadirProductoServlet">Volver</a> <a
-					class="btn" href="ListadoPedidosServlet">Ver Pedidos</a> <a
-					class="btn" href="EditarPerfilServlet">Editar Perfil</a>
->>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 			</div>
 		</div>
 

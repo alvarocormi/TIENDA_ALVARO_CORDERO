@@ -14,11 +14,7 @@
 						<fmt:message key="contact" />
 					</h1>
 				</div>
-				<a href="?lang=en"> <img class="img-fluid product-thumbnail"
-					src="images/english.png" width="40px"/>
-				</a> <a href="?lang=es"><img
-					class="img-fluid product-thumbnail" src="images/spain.png" width="40px"/>
-				</a>
+				<a href="?lang=en">English</a> <a href="?lang=es">Español</a>
 			</div>
 		</div>
 	</div>
@@ -106,35 +102,29 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<label class="text-black" for="fname"><fmt:message
-											key="name" /></label> <input type="text" class="form-control"
-										id="name" name="name">
+									<label class="text-black" for="fname"><fmt:message key="name" /></label> <input
+										type="text" class="form-control" id="name" name="name">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label class="text-black" for="lname"><fmt:message
-											key="lastName" /></label> <input type="text" class="form-control"
-										id="apellido" name="apellido">
+									<label class="text-black" for="lname"><fmt:message key="lastName" /></label> <input
+										type="text" class="form-control" id="apellido" name="apellido">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="text-black" for="email"><fmt:message
-									key="email" /></label> <input type="email" class="form-control"
-								id="email" name="email">
+							<label class="text-black" for="email"><fmt:message key="email" /></label> <input
+								type="email" class="form-control" id="email" name="email">
 						</div>
 
 						<div class="form-group mb-5">
-							<label class="text-black" for="message"><fmt:message
-									key="message" /></label>
+							<label class="text-black" for="message"><fmt:message key="message" /></label>
 							<textarea name="mensaje" class="form-control" id="message"
 								cols="30" rows="5"></textarea>
 						</div>
 
-						<button type="submit" class="btn btn-primary-hover-outline">
-							<fmt:message key="send" />
-						</button>
+						<button type="submit" class="btn btn-primary-hover-outline"><fmt:message key="send" /></button>
 					</form>
 
 				</div>

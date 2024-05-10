@@ -26,29 +26,19 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession sessionLogin = request.getSession(true);
 		boolean isAuthenticated = UsuarioService.verificarCredenciales(request.getParameter("email"),
 				request.getParameter("clave"));
 
 		if (isAuthenticated) {
-
-			if (request.getParameter("email").equals("administrador@gmail.com") && UsuarioService.compararClaves(request.getParameter("clave") ,UsuarioService.encriptarClave("admin")) ) {
-				sessionLogin.setAttribute("usuario", UsuarioService.recuperarUsuario(request.getParameter("email")));
-				response.sendRedirect("http://localhost:9090/");
-				return;
-			}
-
+			HttpSession sessionLogin = request.getSession(true);
 			sessionLogin.setAttribute("usuario", UsuarioService.recuperarUsuario(request.getParameter("email")));
 			log.info("El usuario inició sesión.");
 			request.getRequestDispatcher("").forward(request, response);
+			
 
 		} else {
-<<<<<<< HEAD
 			HttpSession sessionLogin = request.getSession(false);
 			request.setAttribute("error", "Error de credenciales.");
-=======
-			sessionLogin.setAttribute("error", "Error de credenciales.");
->>>>>>> 7d127beb7c7dc84417bf193a3fabc5ee3def2ae8
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 

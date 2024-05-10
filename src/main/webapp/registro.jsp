@@ -35,13 +35,13 @@
 								class="form-control" id="c_lname" name="claveRepetida">
 						</div>
 						<div class="form-group pt-4">
-							<input type="submit" class="btn"
+							<input type="submit" class="btn btn-black btn-lg py-2 btn-block"
 								value="Registrarse"></input>
 						</div>
 					</form>
 				</div>
 
-
+			<p style="color: red; margin-top: 10px; margin-left: 5px; font-size: 15px;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></p>
 			</div>
 		</div>
 
